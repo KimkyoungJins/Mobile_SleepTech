@@ -3,6 +3,7 @@ import {
   Alert,
   AppState,
   FlatList,
+  Linking,
   LogBox,
   PermissionsAndroid,
   Platform,
@@ -14,6 +15,7 @@ import {
 
 import * as Sharing from 'expo-sharing';
 import BackgroundService from 'react-native-background-actions';
+import { fromByteArray, toByteArray } from 'base64-js';
 import { BleManager } from 'react-native-ble-plx';
 import RNFS from 'react-native-fs';
 
@@ -47,7 +49,6 @@ const backgroundTask = async (taskDataArguments) => {
 };
 
 // [백그라운드 옵션 설정]
-
 const backgroundOptions = {
     taskName: 'SleepStudyRecorder',
     taskTitle: '수면 데이터 기록 중',
@@ -89,6 +90,12 @@ export default function HomeScreen() {
   const fileInitializedRef = useRef(false); // 파일 초기화 여부
   const FLUSH_INTERVAL = 5000; // 5초마다 버퍼 flush
 
+  // BLE 재연결 관련
+  const lastDeviceIdRef = useRef(null); // 마지막 연결 디바이스 ID
+  const reconnectAttemptRef = useRef(0); // 재연결 시도 횟수
+  const MAX_RECONNECT_ATTEMPTS = 10; // 최대 재연결 시도 횟수
+  const disconnectionListenerRef = useRef(null); // 연결 끊김 리스너
+
   // 파일네임 하드코딩
   const fileName = 'data.raw';
 
@@ -119,6 +126,33 @@ export default function HomeScreen() {
     };
   }, []);
 
+  // 배터리 최적화 제외 요청 (삼성폰 필수)
+  const requestBatteryOptimizationExclusion = async () => {
+    if (Platform.OS !== 'android') return;
+
+    try {
+      // 배터리 최적화 설정 화면으로 이동하도록 안내
+      Alert.alert(
+        "배터리 최적화 제외 필요",
+        "앱이 백그라운드에서 8시간 이상 안정적으로 동작하려면 배터리 최적화에서 제외해야 합니다.\n\n" +
+        "설정 > 앱 > 이 앱 > 배터리 > '제한 없음' 선택\n\n" +
+        "또는 설정 > 배터리 > 백그라운드 사용 제한 > 이 앱 제외",
+        [
+          { text: "나중에", style: "cancel" },
+          {
+            text: "설정으로 이동",
+            onPress: () => {
+              // 앱의 배터리 설정 화면으로 이동
+              Linking.openSettings();
+            }
+          }
+        ]
+      );
+    } catch (err) {
+      console.log('배터리 최적화 설정 에러:', err);
+    }
+  };
+
   useEffect(() => {
     LogBox.ignoreLogs(['new NativeEventEmitter']);
 
@@ -127,11 +161,13 @@ export default function HomeScreen() {
         await PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
           PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,          
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           // 안드로이드 13 이상에서 알림 권한 필요 (백그라운드 서비스 알림용)
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,       
-            
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
         ]);
+
+        // 첫 실행 시 배터리 최적화 제외 안내
+        requestBatteryOptimizationExclusion();
       }
     };
     requestPermissions();
@@ -148,6 +184,12 @@ export default function HomeScreen() {
 
       // BLE 스캔 중지
       manager.stopDeviceScan();
+
+      // BLE 연결 끊김 리스너 제거
+      if (disconnectionListenerRef.current) {
+        disconnectionListenerRef.current.remove();
+        disconnectionListenerRef.current = null;
+      }
 
       // BLE 모니터링 subscription 제거
       if (monitorSubscriptionRef.current) {
@@ -214,27 +256,58 @@ export default function HomeScreen() {
     if (writeBufferRef.current.length === 0) return;
 
     // 버퍼 복사 후 초기화 (새 데이터가 들어올 수 있으므로)
-    const dataToWrite = writeBufferRef.current.join('');
+    const chunksToWrite = [...writeBufferRef.current];
     writeBufferRef.current = [];
 
     try {
+      // 모든 base64 청크를 바이너리로 디코딩하여 합치기
+      const byteArrays = chunksToWrite
+        .filter(chunk => chunk) // null/undefined 필터
+        .map(chunk => {
+          try {
+            return toByteArray(chunk);
+          } catch (e) {
+            console.log(`[${getTimestamp()}] base64 디코딩 에러`);
+            return null;
+          }
+        })
+        .filter(arr => arr !== null);
+
+      if (byteArrays.length === 0) return;
+
+      // 총 바이트 수 계산
+      const totalLength = byteArrays.reduce((sum, arr) => sum + arr.length, 0);
+
+      // 하나의 Uint8Array로 합치기
+      const combinedArray = new Uint8Array(totalLength);
+      let offset = 0;
+      for (const arr of byteArrays) {
+        combinedArray.set(arr, offset);
+        offset += arr.length;
+      }
+
+      // 다시 base64로 인코딩
+      const combinedBase64 = fromByteArray(combinedArray);
+
+      // 한 번의 파일 쓰기로 저장
       if (!fileInitializedRef.current) {
-        // 첫 쓰기: 파일 존재 여부 확인
         const exists = await RNFS.exists(filePath);
         if (exists) {
-          await RNFS.appendFile(filePath, dataToWrite, 'base64');
+          await RNFS.appendFile(filePath, combinedBase64, 'base64');
         } else {
-          await RNFS.writeFile(filePath, dataToWrite, 'base64');
+          await RNFS.writeFile(filePath, combinedBase64, 'base64');
         }
         fileInitializedRef.current = true;
       } else {
-        // 이후 쓰기: 바로 append
-        await RNFS.appendFile(filePath, dataToWrite, 'base64');
+        await RNFS.appendFile(filePath, combinedBase64, 'base64');
       }
+
+      console.log(`[${getTimestamp()}] ${chunksToWrite.length}개 청크 저장 완료 (${totalLength} bytes)`);
+
     } catch (err) {
       console.log(`[${getTimestamp()}] 파일 쓰기 에러:`, err.message);
       // 실패한 데이터 다시 버퍼에 추가 (데이터 손실 방지)
-      writeBufferRef.current = [dataToWrite, ...writeBufferRef.current];
+      writeBufferRef.current = [...chunksToWrite, ...writeBufferRef.current];
     }
   };
 
@@ -258,11 +331,75 @@ export default function HomeScreen() {
     console.log(`[${getTimestamp()}] 파일 쓰기 타이머 정지, 버퍼 flush 완료`);
   };
 
+  // BLE 자동 재연결 함수
+  const attemptReconnect = async () => {
+    if (!lastDeviceIdRef.current || !isRecordingRef.current) {
+      console.log(`[${getTimestamp()}] 재연결 조건 미충족 (녹음중: ${isRecordingRef.current})`);
+      return;
+    }
+
+    if (reconnectAttemptRef.current >= MAX_RECONNECT_ATTEMPTS) {
+      console.log(`[${getTimestamp()}] 최대 재연결 시도 횟수 초과`);
+      addLog('재연결 실패: 최대 시도 횟수 초과');
+      return;
+    }
+
+    reconnectAttemptRef.current += 1;
+    console.log(`[${getTimestamp()}] 재연결 시도 ${reconnectAttemptRef.current}/${MAX_RECONNECT_ATTEMPTS}`);
+
+    try {
+      // 이전 디바이스 ID로 재연결 시도
+      const devices = await manager.devices([lastDeviceIdRef.current]);
+      if (devices.length > 0) {
+        await connectToDevice(devices[0]);
+        reconnectAttemptRef.current = 0; // 성공 시 카운터 리셋
+        console.log(`[${getTimestamp()}] 재연결 성공`);
+      } else {
+        // 디바이스를 찾을 수 없으면 스캔 시작
+        console.log(`[${getTimestamp()}] 디바이스 재스캔 시작`);
+        scanAndConnect();
+      }
+    } catch (err) {
+      console.log(`[${getTimestamp()}] 재연결 실패:`, err.message);
+      // 5초 후 재시도
+      setTimeout(() => attemptReconnect(), 5000);
+    }
+  };
+
+  // 연결 끊김 리스너 설정
+  const setupDisconnectionListener = (connectedDevice) => {
+    // 기존 리스너 제거
+    if (disconnectionListenerRef.current) {
+      disconnectionListenerRef.current.remove();
+    }
+
+    // 연결 끊김 감지
+    disconnectionListenerRef.current = manager.onDeviceDisconnected(
+      connectedDevice.id,
+      (error, device) => {
+        console.log(`[${getTimestamp()}] BLE 연결 끊김 감지`);
+        setIsConnected(false);
+        setDevice(null);
+
+        // 녹음 중이었다면 자동 재연결 시도
+        if (isRecordingRef.current) {
+          addLog('연결 끊김 - 재연결 시도 중...');
+          setTimeout(() => attemptReconnect(), 2000);
+        } else {
+          addLog('연결이 끊어졌습니다');
+        }
+      }
+    );
+  };
+
   const connectToDevice = async (deviceToConnect) => {
 
     try {
       const connectedDevice = await deviceToConnect.connect();
       await connectedDevice.discoverAllServicesAndCharacteristics();
+
+      // 재연결용 디바이스 ID 저장
+      lastDeviceIdRef.current = connectedDevice.id;
 
       setDevice(connectedDevice);
       setIsConnected(true);
@@ -272,6 +409,9 @@ export default function HomeScreen() {
         await connectedDevice.requestMTU(247);
         addLog('MTU 요청 완료');
       }
+
+      // 연결 끊김 리스너 설정
+      setupDisconnectionListener(connectedDevice);
 
       // BLE 데이터 모니터링 (백그라운드 서비스가 켜져 있으면, 앱이 내려가도 이 콜백은 계속 실행됨)
       monitorSubscriptionRef.current = connectedDevice.monitorCharacteristicForService(
@@ -332,11 +472,21 @@ export default function HomeScreen() {
         await BackgroundService.stop();
     }
 
+    // BLE 연결 끊김 리스너 제거 (수동 해제 시 자동 재연결 방지)
+    if (disconnectionListenerRef.current) {
+      disconnectionListenerRef.current.remove();
+      disconnectionListenerRef.current = null;
+    }
+
     // BLE 모니터링 subscription 제거
     if (monitorSubscriptionRef.current) {
       monitorSubscriptionRef.current.remove();
       monitorSubscriptionRef.current = null;
     }
+
+    // 재연결 관련 상태 초기화
+    lastDeviceIdRef.current = null;
+    reconnectAttemptRef.current = 0;
 
     if (device) {
       await device.cancelConnection();
