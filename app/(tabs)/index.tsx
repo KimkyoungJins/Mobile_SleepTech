@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Alert,
+  AppState,
   FlatList,
   LogBox,
   PermissionsAndroid,
@@ -36,6 +37,7 @@ const backgroundTask = async (taskDataArguments) => {
 };
 
 // [백그라운드 옵션 설정]
+
 const backgroundOptions = {
     taskName: 'SleepStudyRecorder',
     taskTitle: '수면 데이터 기록 중',
@@ -66,6 +68,7 @@ export default function HomeScreen() {
   // useRef를 통해 이벤트 리스너 내부에서도 최신 상태값 참조
   const timeRef = useRef(0);
   const isRecordingRef = useRef(false);
+  const isAppActiveRef = useRef(true); // 앱이 포그라운드인지 추적
 
   // 파일네임 하드코딩
   const fileName = 'data.raw';
@@ -74,13 +77,24 @@ export default function HomeScreen() {
   const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
   // 녹음 상태가 변할 때 ref 업데이트
-  // 리코딩에 관한 상태가 변경될 때마다 특정 작업을 수행할 수 있도록한다. 
+  // 리코딩에 관한 상태가 변경될 때마다 특정 작업을 수행할 수 있도록한다.
   useEffect(() => {
     isRecordingRef.current = isRecording;
-    // 콘솔 찍는다. 
+    // 콘솔 찍는다.
     console.log(`녹음 상태 변경: ${isRecording}`);
   }, [isRecording]);
 
+  // AppState 리스너: 백그라운드/포그라운드 상태 추적
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      isAppActiveRef.current = nextAppState === 'active';
+      console.log(`앱 상태 변경: ${nextAppState}`);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     LogBox.ignoreLogs(['new NativeEventEmitter']);
@@ -187,9 +201,20 @@ export default function HomeScreen() {
             return;
           }
           if (characteristic?.value) {
+            // [중요] 녹음 중이라면 파일에 저장
+            // 백그라운드에서도 isRecordingRef.current가 true라면 파일 쓰기가 동작함
+            if (isRecordingRef.current) {
+              await appendData(characteristic.value);
+            }
+
+            // 앱이 백그라운드일 때는 UI 업데이트 건너뛰기
+            if (!isAppActiveRef.current) {
+              return;
+            }
+
             setPacketCount((prev) => prev + 1);
 
-            // UI 업데이트용 로그 (너무 자주 업데이트하면 성능 저하되므로 1초 제한)
+            // UI 업데이트용 로그 (너무 자주 업데이트하면 성능 저하되므로 10초 제한)
             const now = Date.now();
             if (now - timeRef.current > 10000) {
               const converted = decodeBase64(characteristic.value);
@@ -201,12 +226,6 @@ export default function HomeScreen() {
               };
               setLogs((prev) => [logEntry, ...prev].slice(0, 50));
               timeRef.current = now;
-            }
-
-            // [중요] 녹음 중이라면 파일에 저장
-            // 백그라운드에서도 isRecordingRef.current가 true라면 파일 쓰기가 동작함
-            if (isRecordingRef.current) {
-              await appendData(characteristic.value);
             }
           }
         }
