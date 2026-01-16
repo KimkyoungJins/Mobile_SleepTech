@@ -69,6 +69,8 @@ export default function HomeScreen() {
   const timeRef = useRef(0);
   const isRecordingRef = useRef(false);
   const isAppActiveRef = useRef(true); // 앱이 포그라운드인지 추적
+  const deviceRef = useRef(null); // cleanup에서 device 접근용
+  const monitorSubscriptionRef = useRef(null); // BLE 모니터링 subscription
 
   // 파일네임 하드코딩
   const fileName = 'data.raw';
@@ -80,9 +82,13 @@ export default function HomeScreen() {
   // 리코딩에 관한 상태가 변경될 때마다 특정 작업을 수행할 수 있도록한다.
   useEffect(() => {
     isRecordingRef.current = isRecording;
-    // 콘솔 찍는다.
     console.log(`녹음 상태 변경: ${isRecording}`);
   }, [isRecording]);
+
+  // device 상태가 변할 때 ref 업데이트 (cleanup에서 사용)
+  useEffect(() => {
+    deviceRef.current = device;
+  }, [device]);
 
   // AppState 리스너: 백그라운드/포그라운드 상태 추적
   useEffect(() => {
@@ -113,9 +119,28 @@ export default function HomeScreen() {
     };
     requestPermissions();
 
-    // 컴포넌트 언마운트 시 서비스 정지 (안전 장치)
+    // 컴포넌트 언마운트 시 리소스 정리
     return () => {
+      // BLE 스캔 중지
+      manager.stopDeviceScan();
+
+      // BLE 모니터링 subscription 제거
+      if (monitorSubscriptionRef.current) {
+        monitorSubscriptionRef.current.remove();
+        monitorSubscriptionRef.current = null;
+      }
+
+      // 연결된 디바이스가 있으면 연결 해제
+      if (deviceRef.current) {
+        deviceRef.current.cancelConnection()
+          .catch((err) => console.log('연결 해제 에러:', err.message));
+      }
+
+      // 백그라운드 서비스 정지
       BackgroundService.stop();
+
+      // BLE 매니저 리소스 정리
+      manager.destroy();
     };
   }, []);
 
@@ -191,7 +216,7 @@ export default function HomeScreen() {
       }
 
       // BLE 데이터 모니터링 (백그라운드 서비스가 켜져 있으면, 앱이 내려가도 이 콜백은 계속 실행됨)
-      connectedDevice.monitorCharacteristicForService(
+      monitorSubscriptionRef.current = connectedDevice.monitorCharacteristicForService(
         NUS_SERVICE_UUID,
         NUS_TX_CHARACTERISTIC_UUID,
         async (error, characteristic) => {
@@ -241,6 +266,12 @@ export default function HomeScreen() {
     // 연결 해제 시 백그라운드 서비스도 종료
     if (BackgroundService.isRunning()) {
         await BackgroundService.stop();
+    }
+
+    // BLE 모니터링 subscription 제거
+    if (monitorSubscriptionRef.current) {
+      monitorSubscriptionRef.current.remove();
+      monitorSubscriptionRef.current = null;
     }
 
     if (device) {
