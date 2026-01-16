@@ -26,11 +26,21 @@ const DEVICE_NAME_FILTER = 'Nordic_UART_S';
 // 지정된 시간 만큼 대기 할 수 있도록 하는 것.
 const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
 
+const getTimestamp = () => {
+  const now = new Date();
+  return now.toLocaleString('ko-KR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+};
+
 const backgroundTask = async (taskDataArguments) => {
     const { delay } = taskDataArguments;
-    await new Promise(async (resolve) => {      
-        for (let i = 0; BackgroundService.isRunning(); i++) {                    
-            console.log("Background service is alive:", i);
+    await new Promise(async (resolve) => {
+        for (let i = 0; BackgroundService.isRunning(); i++) {
+            console.log(`[${getTimestamp()}] Background service is alive: ${i}`);
             await sleep(delay);
         }
     });
@@ -71,6 +81,13 @@ export default function HomeScreen() {
   const isAppActiveRef = useRef(true); // 앱이 포그라운드인지 추적
   const deviceRef = useRef(null); // cleanup에서 device 접근용
   const monitorSubscriptionRef = useRef(null); // BLE 모니터링 subscription
+  const packetCountRef = useRef(0); // 패킷 카운트 (UI 업데이트 최적화용)
+
+  // 파일 쓰기 버퍼링 관련
+  const writeBufferRef = useRef([]); // 데이터 버퍼
+  const flushIntervalRef = useRef(null); // 주기적 flush 타이머
+  const fileInitializedRef = useRef(false); // 파일 초기화 여부
+  const FLUSH_INTERVAL = 5000; // 5초마다 버퍼 flush
 
   // 파일네임 하드코딩
   const fileName = 'data.raw';
@@ -121,6 +138,14 @@ export default function HomeScreen() {
 
     // 컴포넌트 언마운트 시 리소스 정리
     return () => {
+      // 파일 쓰기 타이머 정지
+      if (flushIntervalRef.current) {
+        clearInterval(flushIntervalRef.current);
+        flushIntervalRef.current = null;
+      }
+      // 남은 버퍼 flush 시도
+      flushBuffer();
+
       // BLE 스캔 중지
       manager.stopDeviceScan();
 
@@ -147,7 +172,6 @@ export default function HomeScreen() {
   const addLog = (msg) => {
     const logEntry = {
       text: msg,
-      hex: '',
       timestamp: new Date().toLocaleTimeString()
     };
     setLogs((prev) => [logEntry, ...prev].slice(0, 50));
@@ -179,25 +203,59 @@ export default function HomeScreen() {
     }
   };
 
-  const convertToHex = (msg) => {
-    return msg
-      .split('')
-      .map(char => char.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0'))
-      .join(' ');
+  // 버퍼에 데이터 추가 (매 패킷마다 호출)
+  const appendData = (data) => {
+    if (!data) return;
+    writeBufferRef.current.push(data);
   };
 
-  const appendData = async (data) => {
-    if (!data) return;
+  // 버퍼를 파일에 flush (주기적으로 호출)
+  const flushBuffer = async () => {
+    if (writeBufferRef.current.length === 0) return;
+
+    // 버퍼 복사 후 초기화 (새 데이터가 들어올 수 있으므로)
+    const dataToWrite = writeBufferRef.current.join('');
+    writeBufferRef.current = [];
+
     try {
-      const exists = await RNFS.exists(filePath);
-      if (exists) {
-        await RNFS.appendFile(filePath, data, 'base64');
+      if (!fileInitializedRef.current) {
+        // 첫 쓰기: 파일 존재 여부 확인
+        const exists = await RNFS.exists(filePath);
+        if (exists) {
+          await RNFS.appendFile(filePath, dataToWrite, 'base64');
+        } else {
+          await RNFS.writeFile(filePath, dataToWrite, 'base64');
+        }
+        fileInitializedRef.current = true;
       } else {
-        await RNFS.writeFile(filePath, data, 'base64');
+        // 이후 쓰기: 바로 append
+        await RNFS.appendFile(filePath, dataToWrite, 'base64');
       }
     } catch (err) {
-      console.log('파일 쓰기 에러:', err.message);
+      console.log(`[${getTimestamp()}] 파일 쓰기 에러:`, err.message);
+      // 실패한 데이터 다시 버퍼에 추가 (데이터 손실 방지)
+      writeBufferRef.current = [dataToWrite, ...writeBufferRef.current];
     }
+  };
+
+  // flush 타이머 시작
+  const startFlushTimer = () => {
+    if (flushIntervalRef.current) return;
+    flushIntervalRef.current = setInterval(() => {
+      flushBuffer();
+    }, FLUSH_INTERVAL);
+    console.log(`[${getTimestamp()}] 파일 쓰기 타이머 시작 (${FLUSH_INTERVAL}ms 간격)`);
+  };
+
+  // flush 타이머 정지 및 남은 버퍼 저장
+  const stopFlushTimer = async () => {
+    if (flushIntervalRef.current) {
+      clearInterval(flushIntervalRef.current);
+      flushIntervalRef.current = null;
+    }
+    // 남은 버퍼 flush
+    await flushBuffer();
+    console.log(`[${getTimestamp()}] 파일 쓰기 타이머 정지, 버퍼 flush 완료`);
   };
 
   const connectToDevice = async (deviceToConnect) => {
@@ -232,21 +290,24 @@ export default function HomeScreen() {
               await appendData(characteristic.value);
             }
 
+            // 패킷 카운트는 ref로 즉시 증가 (리렌더링 없음)
+            packetCountRef.current += 1;
+
             // 앱이 백그라운드일 때는 UI 업데이트 건너뛰기
             if (!isAppActiveRef.current) {
               return;
             }
 
-            setPacketCount((prev) => prev + 1);
-
-            // UI 업데이트용 로그 (너무 자주 업데이트하면 성능 저하되므로 10초 제한)
+            // UI 업데이트 (10초마다 한 번만)
             const now = Date.now();
             if (now - timeRef.current > 10000) {
+              // 패킷 카운트 UI 동기화
+              setPacketCount(packetCountRef.current);
+
+              // 로그 추가
               const converted = decodeBase64(characteristic.value);
-              const finalHex = convertToHex(converted);
               const logEntry = {
                 text: converted,
-                hex: finalHex,
                 timestamp: new Date().toLocaleTimeString()
               };
               setLogs((prev) => [logEntry, ...prev].slice(0, 50));
@@ -263,6 +324,9 @@ export default function HomeScreen() {
   };
 
   const disconnect = async () => {
+    // 파일 쓰기 타이머 정지 및 버퍼 flush
+    await stopFlushTimer();
+
     // 연결 해제 시 백그라운드 서비스도 종료
     if (BackgroundService.isRunning()) {
         await BackgroundService.stop();
@@ -290,7 +354,10 @@ export default function HomeScreen() {
         await RNFS.unlink(filePath);
         addLog('파일 삭제 완료');
         Alert.alert("알림", "저장된 데이터 파일이 삭제되었습니다.");
+        packetCountRef.current = 0;
         setPacketCount(0);
+        fileInitializedRef.current = false; // 파일 삭제 후 초기화 상태 리셋
+        writeBufferRef.current = []; // 버퍼도 비우기
       } else {
         Alert.alert("알림", "삭제할 파일이 없습니다.");
       }
@@ -312,20 +379,22 @@ export default function HomeScreen() {
     setIsRecording(nextState); // 상태 업데이트
 
     if (nextState) {
-        // 녹음 시작 -> 백그라운드 서비스 시작
+        // 녹음 시작 -> 백그라운드 서비스 시작 + 파일 쓰기 타이머 시작
         try {
             if (!BackgroundService.isRunning()) {
                 await BackgroundService.start(backgroundTask, backgroundOptions);
-                await BackgroundService.updateNotification({taskDesc: 'New ExampleTask description'}); // Only Android, iOS will ignore this call
+                await BackgroundService.updateNotification({taskDesc: '수면 데이터 기록 중...'});
                 addLog('백그라운드 서비스 시작됨');
             }
+            startFlushTimer();
         } catch (e) {
             console.log('백그라운드 서비스 시작 실패', e);
         }
 
     } else {
-        // 녹음 중지 -> 백그라운드 서비스 중지
+        // 녹음 중지 -> 파일 쓰기 타이머 정지 + 백그라운드 서비스 중지
         try {
+            await stopFlushTimer(); // 남은 버퍼 저장
             if (BackgroundService.isRunning()) {
                 await BackgroundService.stop();
                 addLog('백그라운드 서비스 중지됨');
@@ -425,6 +494,10 @@ export default function HomeScreen() {
           </View>
         )}
         style={styles.logList}
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        initialNumToRender={10}
       />
     </View>
   );
