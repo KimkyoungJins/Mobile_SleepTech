@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "esnext",
+    "target": "esnext",
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "baseUrl": "./"
+  }
+}

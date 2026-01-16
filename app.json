@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "ble_react",
+    "slug": "ble_react",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "blereact",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourname.bleapp",
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "기기 연결을 위해 블루투스 권한이 필요합니다.",
+        "NSBluetoothPeripheralUsageDescription": "기기 연결을 위해 블루투스 권한이 필요합니다."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.yourname.bleapp",
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.BLUETOOTH_SCAN",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "plugins": [
+      [
+        "@config-plugins/react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": [
+            "central"
+          ],
+          "bluetoothAlwaysPermission": "Allow App to use Bluetooth",
+          "bluetoothPeripheralPermission": "Allow App to use Bluetooth"
+        }, 
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "06b3023a-7be8-47e1-bf2a-b61e9bd38517"
+      }
+    }
+  }
+}

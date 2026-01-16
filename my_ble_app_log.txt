@@ -1,0 +1,578 @@
+--------- beginning of main
+01-16 14:19:58.079 I/yourname.bleapp(30017): Late-enabling -Xcheck:jni
+01-16 14:19:58.095 I/yourname.bleapp(30017): Using CollectorTypeCMC GC.
+01-16 14:19:58.099 D/nativeloader(30017): Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+01-16 14:19:58.102 D/ActivityThread(30017): setConscryptValidator
+01-16 14:19:58.102 D/ActivityThread(30017): setConscryptValidator - put
+01-16 14:19:58.316 D/nativeloader(30017): Configuring clns-7 for other apk /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/lib/arm64:/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.yourname.bleapp
+01-16 14:19:58.323 V/GraphicsEnvironment(30017): Currently set values for:
+01-16 14:19:58.323 V/GraphicsEnvironment(30017):   angle_gl_driver_selection_pkgs=[]
+01-16 14:19:58.323 V/GraphicsEnvironment(30017):   angle_gl_driver_selection_values=[]
+01-16 14:19:58.323 V/GraphicsEnvironment(30017): Global.Settings values are invalid: number of packages: 0, number of values: 0
+01-16 14:19:58.323 V/GraphicsEnvironment(30017): App is not on the allowlist for updatable production driver.
+01-16 14:19:58.364 W/SoLoader(30017): Initializing SoLoader: 0
+01-16 14:19:58.364 W/SoLoader(30017): Recording new base apk path: /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk
+01-16 14:19:58.364 W/SoLoader(30017): Previously recorded 0 base apk paths.
+01-16 14:19:58.365 I/SoLoader(30017): Preparing SO source: DirectorySoSource[root = /vendor/lib64 flags = 2]
+01-16 14:19:58.365 I/SoLoader(30017): Preparing SO source: DirectorySoSource[root = /system/lib64 flags = 2]
+01-16 14:19:58.365 I/SoLoader(30017): Preparing SO source: DirectApkSoSource[root = [/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a]]
+01-16 14:19:58.394 I/SoLoader(30017): Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/lib/arm64 flags = 0]]
+01-16 14:19:58.394 I/SoLoader(30017): init finish: 4 SO sources prepared
+01-16 14:19:58.395 W/SoLoader(30017): SoLoader initialized: 8
+01-16 14:19:58.403 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libc++_shared.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.406 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libjsi.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.409 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libfbjni.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.413 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libreactnative.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.413 D/jni_lib_merge(30017): Entering merged library JNI_OnLoad.
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing 12 pre-merged libs (including stub)
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libfabricjni_so.  onload_func: 0x7308e2cce0
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreact_devsupportjni_so.  onload_func: 0x7309026fc8
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreact_featureflagsjni_so.  onload_func: 0x7309035518
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreact_newarchdefaults_so.  onload_func: 0x730909d6a8
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreactnativeblob_so.  onload_func: 0x730928dcb4
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreactnativejni_so.  onload_func: 0x73092db6bc
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libreactnativejni_common_so.  onload_func: 0x73092ec044
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register librninstance_so.  onload_func: 0x7309333764
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libturbomodulejsijni_so.  onload_func: 0x730944bf68
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libuimanagerjni_so.  onload_func: 0x7309464fb8
+01-16 14:19:58.413 D/jni_lib_merge(30017): Preparing to register libyoga_so.  onload_func: 0x7309474a3c
+01-16 14:19:58.413 D/jni_lib_merge(30017): About to register 11 actual methods.
+01-16 14:19:58.420 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libreact_codegen_rnscreens.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.420 D/jni_lib_merge(30017): Entering merged library JNI_OnLoad.
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing 12 pre-merged libs (including stub)
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libfabricjni_so.  onload_func: 0x7308e2cce0
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreact_devsupportjni_so.  onload_func: 0x7309026fc8
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreact_featureflagsjni_so.  onload_func: 0x7309035518
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreact_newarchdefaults_so.  onload_func: 0x730909d6a8
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreactnativeblob_so.  onload_func: 0x730928dcb4
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreactnativejni_so.  onload_func: 0x73092db6bc
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libreactnativejni_common_so.  onload_func: 0x73092ec044
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register librninstance_so.  onload_func: 0x7309333764
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libturbomodulejsijni_so.  onload_func: 0x730944bf68
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libuimanagerjni_so.  onload_func: 0x7309464fb8
+01-16 14:19:58.420 D/jni_lib_merge(30017): Preparing to register libyoga_so.  onload_func: 0x7309474a3c
+01-16 14:19:58.420 D/jni_lib_merge(30017): About to register 11 actual methods.
+01-16 14:19:58.423 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libreact_codegen_safeareacontext.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.425 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libappmodules.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+--------- beginning of system
+01-16 14:19:58.432 D/ActivityThread(30017): com.yourname.bleapp will use render engine as VK
+01-16 14:19:58.433 D/HWUI    (30017): HWUI - treat SMPTE_170M as sRGB
+01-16 14:19:58.436 D/HWUI    (30017): CacheManager constructor. deviceInfo=(1080, 1920)
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): QUALCOMM build                   : 0072b4b1a5, Icba6ef92d0
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Build Date                       : 04/19/25
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): OpenGL ES Shader Compiler Version: E031.41.03.61
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Local Branch                     : 
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.VENDOR.13.2.0.11.00.00.856.062
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Remote Branch                    : NONE
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Reconstruct Branch               : NOTHING
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Build Config                     : S P 14.1.4 AArch64
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+01-16 14:19:58.437 I/AdrenoGLES-0(30017): Driver Version                   : 0676.71
+01-16 14:19:58.440 I/AdrenoGLES-0(30017): PFP: 0x01740181, ME: 0x00000000
+01-16 14:19:58.444 W/Adreno-AppProfiles(30017): Could not find QSPM HAL service. Skipping adreno profile processing.
+01-16 14:19:58.446 I/AdrenoUtils(30017): <ReadGpuID:407>: Reading chip ID through GSL
+01-16 14:19:58.451 D/AppCompatDelegate(30017): Checking for metadata for AppLocalesMetadataHolderService : Service not found
+01-16 14:19:58.464 I/DecorView(30017): setWindowBackground: isPopOver=false color=fffafafa d=android.graphics.drawable.ColorDrawable@38db4bf
+01-16 14:19:58.466 I/yourname.bleapp(30017): hiddenapi: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+01-16 14:19:58.496 D/SensorManager(30017): registerListener :: 11, lsm6dso LSM6DSO Accelerometer Non-wakeup, 66667, 0, 
+01-16 14:19:58.501 W/unknown:BridgelessReact(30017): ReactHost{0}.startSurface(surfaceId = 0): Schedule
+01-16 14:19:58.501 W/unknown:BridgelessReact(30017): ReactHost{0}.attachSurface(surfaceId = 0)
+01-16 14:19:58.501 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask()
+01-16 14:19:58.502 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask(): Start
+01-16 14:19:58.502 W/unknown:BridgelessReact(30017): ReactHost{0}.getJSBundleLoader()
+01-16 14:19:58.502 W/unknown:BridgelessReact(30017): ReactHost{0}.isMetroRunning()
+01-16 14:19:58.502 D/PhoneWindow(30017): forceLight changed to false [] from com.android.internal.policy.PhoneWindow.updateForceLightNavigationBar:4536 com.android.internal.policy.PhoneWindow.setNavigationBarColor:4227 com.facebook.react.views.view.WindowUtilKt.enableEdgeToEdge:116 java.lang.reflect.Method.invoke:-2 expo.modules.kotlin.edgeToEdge.EdgeToEdgePackage$createReactActivityLifecycleListeners$1.onCreate:113 
+01-16 14:19:58.505 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostResume(activity)
+01-16 14:19:58.511 I/ViewRootImpl(30017): dVRR is disabled
+01-16 14:19:58.511 D/HardwareRenderer(30017): onDisplayChanged. displayId=0 current wxh=1440x3088 mLargest wxh=0x0
+01-16 14:19:58.512 D/HardwareRenderer(30017): Set largestWidth and largestHeight as logical resolution. (1440x3088)
+01-16 14:19:58.512 D/HWUI    (30017): setMaxSurfaceArea requested wxh=(1440,3088) requestedSurfaceArea(4446720) mMaxSurfaceArea(2073600)
+01-16 14:19:58.512 D/NativeCustomFrequencyManager(30017): [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+01-16 14:19:58.517 D/InputTransport(30017): Input channel constructed: '6db9617', fd=127
+01-16 14:19:58.518 I/InsetsController(30017): onStateChanged: host=com.yourname.bleapp/com.yourname.bleapp.MainActivity, from=android.view.ViewRootImpl.setView:1999, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(685, 0 - 756, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -9.466666666666667 V 26.66666666666667‬ H 9.466666666666667 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1286, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {960c0000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0005 mType=mandatorySystemGestures mFrame=[0,0][1440,142] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {56fa0001 mType=navigationBars mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0004 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {56fa0005 mType=mandatorySystemGestures mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0006 mType=tappableElement mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0024 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null} }
+01-16 14:19:58.519 I/VRI[MainActivity]@dc23fca(30017): synced displayState. AttachInfo displayState=2
+01-16 14:19:58.519 I/VRI[MainActivity]@dc23fca(30017): setView = com.android.internal.policy.DecorView@3f5d99c IsHRR=false TM=true
+01-16 14:19:58.520 I/IDS_TAG (30017): Starting IDS observe window
+01-16 14:19:58.520 I/IDS_TAG (30017): Getting Shared Preference for com.yourname.bleapp.MainApplication@e7dc6d7 uid = 10658
+01-16 14:19:58.522 I/IDS_TAG (30017): App com.yourname.bleapp.MainApplication@e7dc6d7 has not finished training
+01-16 14:19:58.522 D/HWUI    (30017): HWUI - treat SMPTE_170M as sRGB
+01-16 14:19:58.522 I/IDS_TAG (30017): Closing IDS observe window
+01-16 14:19:58.522 I/IDS_TAG (30017): Getting Shared Preference for com.yourname.bleapp.MainApplication@e7dc6d7 uid = 10658
+01-16 14:19:58.523 I/IDS_TAG (30017): IDS count updated to 2 for com.yourname.bleapp.MainApplication@e7dc6d7
+01-16 14:19:58.526 W/unknown:BridgelessReact(30017): ReactHost{0}.isMetroRunning(): Async result = true
+01-16 14:19:58.526 W/unknown:BridgelessReact(30017): ReactHost{0}.loadJSBundleFromMetro()
+01-16 14:19:58.537 E/yourname.bleapp(30017): Unable to open libpenguin.so: dlopen failed: library "libpenguin.so" not found.
+01-16 14:19:58.537 I/BufferQueueProducer(30017): [](id:754100000000,api:0,p:5721447,c:30017) setDequeueTimeout:2077252342
+01-16 14:19:58.538 I/BLASTBufferQueue_Java(30017): new BLASTBufferQueue, mName= VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb4000073616ec880 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 android.view.Choreographer.doCallbacks:1216 android.view.Choreographer.doFrame:1142 android.view.Choreographer$FrameDisplayEventReceiver.run:1707 
+01-16 14:19:58.538 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 3088 mName = VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb4000073616ec880 format= -1 caller= android.graphics.BLASTBufferQueue.<init>:88 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 
+01-16 14:19:58.538 W/libc    (30017): Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+01-16 14:19:58.538 W/libc    (30017): Access denied finding property "vendor.gpp.create_frc_extension"
+01-16 14:19:58.538 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=5 res=0x3 s={true 0xb40000736c3b5800} ch=true seqId=0
+01-16 14:19:58.539 I/VRI[MainActivity]@dc23fca(30017): performConfigurationChange setNightDimText nightDimLevel=0
+01-16 14:19:58.539 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000736c3b5800} hwInitialized=true
+01-16 14:19:58.540 D/VRI[MainActivity]@dc23fca(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:19:58.540 D/VRI[MainActivity]@dc23fca(30017): Canceling draw. cancelDueToPreDrawListener=true cancelDueToSync=false
+01-16 14:19:58.549 I/WindowManager(30017): WindowManagerGlobal#addView, ty=1000, view=android.widget.PopupWindow$PopupDecorView{6f2ffff V.E...... R.....I. 0,0-0,0}, caller=android.view.WindowManagerImpl.addView:158 android.widget.PopupWindow.invokePopup:1712 android.widget.PopupWindow.showAtLocation:1418 
+01-16 14:19:58.550 I/ViewRootImpl(30017): dVRR is disabled
+01-16 14:19:58.550 D/NativeCustomFrequencyManager(30017): [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+01-16 14:19:58.553 D/InputTransport(30017): Input channel constructed: '205310f', fd=129
+01-16 14:19:58.554 I/InsetsController(30017): onStateChanged: host=PopupWindow:c9cbb1e, from=android.view.ViewRootImpl.setView:1999, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(685, 0 - 756, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -9.466666666666667 V 26.66666666666667‬ H 9.466666666666667 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1286, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {960c0000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0005 mType=mandatorySystemGestures mFrame=[0,0][1440,142] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {56fa0001 mType=navigationBars mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0004 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {56fa0005 mType=mandatorySystemGestures mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0006 mType=tappableElement mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0024 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null} }
+01-16 14:19:58.554 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): synced displayState. AttachInfo displayState=2
+01-16 14:19:58.555 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): setView = android.widget.PopupWindow$PopupDecorView@6f2ffff IsHRR=false TM=true
+01-16 14:19:58.555 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:19:58.555 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:19:58.561 I/BufferQueueProducer(30017): [](id:754100000001,api:0,p:5772647,c:30017) setDequeueTimeout:2077252342
+01-16 14:19:58.561 I/BLASTBufferQueue_Java(30017): new BLASTBufferQueue, mName= VRI[PopupWindow:c9cbb1e]@db0e1cc mNativeObject= 0xb40000736172ad00 sc.mNativeObject= 0xb40000736c432d40 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 android.view.Choreographer.doCallbacks:1216 android.view.Choreographer.doFrame:1142 android.view.Choreographer$FrameDisplayEventReceiver.run:1707 
+01-16 14:19:58.561 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 98 mName = VRI[PopupWindow:c9cbb1e]@db0e1cc mNativeObject= 0xb40000736172ad00 sc.mNativeObject= 0xb40000736c432d40 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:88 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 
+01-16 14:19:58.562 W/libc    (30017): Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+01-16 14:19:58.562 W/libc    (30017): Access denied finding property "vendor.gpp.create_frc_extension"
+01-16 14:19:58.562 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Relayout returned: old=(0,100,1440,2920) new=(0,100,1440,198) relayoutAsync=false req=(1440,98)0 dur=3 res=0x3 s={true 0xb4000073617b2800} ch=true seqId=0
+01-16 14:19:58.562 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): performConfigurationChange setNightDimText nightDimLevel=0
+01-16 14:19:58.563 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): mThreadedRenderer.initialize() mSurface={isValid=true 0xb4000073617b2800} hwInitialized=true
+01-16 14:19:58.563 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:19:58.563 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Setup new sync=wmsSync-VRI[PopupWindow:c9cbb1e]@db0e1cc#0
+01-16 14:19:58.563 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Creating new active sync group VRI[PopupWindow:c9cbb1e]@db0e1cc#1
+01-16 14:19:58.564 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): registerCallbacksForSync syncBuffer=false
+01-16 14:19:58.566 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Received frameDrawingCallback syncResult=0 frameNum=1.
+01-16 14:19:58.566 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): mWNT: t=0xb40000736c424100 mBlastBufferQueue=0xb40000736172ad00 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$11.onFrameDraw:15016 android.view.ThreadedRenderer$1.onFrameDraw:761 <bottom of call stack> 
+01-16 14:19:58.566 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Setting up sync and frameCommitCallback
+01-16 14:19:58.570 I/BLASTBufferQueue(30017): [VRI[PopupWindow:c9cbb1e]@db0e1cc#1](f:0,a:0,s:0) onFrameAvailable the first frame is available
+01-16 14:19:58.570 I/SurfaceComposerClient(30017): apply transaction with the first frame. layerId: 313912, bufferData(ID: 128922033324039, frameNumber: 1)
+01-16 14:19:58.570 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+01-16 14:19:58.570 D/HWUI    (30017): CFMS:: SetUp Pid : 30017    Tid : 30031
+01-16 14:19:58.571 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): reportDrawFinished seqId=0
+01-16 14:19:58.571 D/HWUI    (30017): HWUI - treat SMPTE_170M as sRGB
+01-16 14:19:58.572 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): handleResized, frames=ClientWindowFrames{frame=[0,100][1440,198] display=[0,100][1440,2920] parentFrame=[0,0][0,0] attachedFrame=[0,0][1440,3088]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+01-16 14:19:58.572 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): handleResized mSyncSeqId = 0
+01-16 14:19:58.572 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): reportNextDraw android.view.ViewRootImpl.handleResized:2864 android.view.ViewRootImpl.-$$Nest$mhandleResized:0 android.view.ViewRootImpl$W.resized:13691 android.app.servertransaction.WindowStateResizeItem.execute:64 android.app.servertransaction.WindowStateTransactionItem.execute:59 
+01-16 14:19:58.574 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Setup new sync=wmsSync-VRI[PopupWindow:c9cbb1e]@db0e1cc#2
+01-16 14:19:58.574 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Creating new active sync group VRI[PopupWindow:c9cbb1e]@db0e1cc#3
+01-16 14:19:58.574 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): registerCallbacksForSync syncBuffer=false
+01-16 14:19:58.574 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Received frameDrawingCallback syncResult=0 frameNum=2.
+01-16 14:19:58.574 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Setting up sync and frameCommitCallback
+01-16 14:19:58.574 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): Received frameCommittedCallback lastAttemptedDrawFrameNum=2 didProduceBuffer=false
+01-16 14:19:58.574 I/BLASTBufferQueue_Java(30017): gatherPendingTransactions, mName= VRI[PopupWindow:c9cbb1e]@db0e1cc mNativeObject= 0xb40000736172ad00 frameNumber= 2 caller= android.view.ViewRootImpl$11.lambda$onFrameDraw$3:15100 android.view.ViewRootImpl$11.$r8$lambda$lOIKKNnrcWn9ZndeJebfX4H5mOg:0 android.view.ViewRootImpl$11$$ExternalSyntheticLambda3.onFrameCommit:0 android.view.ThreadedRenderer$1.lambda$onFrameDraw$0:773 android.view.ThreadedRenderer$1$$ExternalSyntheticLambda0.onFrameCommit:0 <bottom of call stack> 
+01-16 14:19:58.574 D/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): reportDrawFinished seqId=0
+01-16 14:19:58.672 I/yourname.bleapp(30017): Compiler allocated 7416KB to compile void android.view.ViewRootImpl.performTraversals()
+01-16 14:19:58.719 I/yourname.bleapp(30017): Compiler allocated 4280KB to compile void android.widget.TextView.<init>(android.content.Context, android.util.AttributeSet, int, int)
+01-16 14:19:58.898 W/unknown:BridgelessReact(30017): ReactHost{0}.loadJSBundleFromMetro(): Creating BundleLoader
+01-16 14:19:58.899 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactContext(): Creating BridgelessReactContext
+01-16 14:19:58.899 I/WindowManager(30017): WindowManagerGlobal#removeView, ty=1000, view=android.widget.PopupWindow$PopupDecorView{6f2ffff V.E...... R....... 0,0-1440,98}, caller=android.view.WindowManagerGlobal.removeView:626 android.view.WindowManagerImpl.removeViewImmediate:216 android.widget.PopupWindow.dismissImmediate:2421 
+01-16 14:19:58.899 W/WindowOnBackDispatcher(30017): sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda15@1f04eb8
+01-16 14:19:58.899 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask(): Creating ReactInstance
+01-16 14:19:58.900 I/VRI[PopupWindow:c9cbb1e]@db0e1cc(30017): dispatchDetachedFromWindow
+01-16 14:19:58.904 D/InputTransport(30017): Input channel destroyed: '205310f', fd=129
+01-16 14:19:58.914 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libhermes.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.915 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libhermestooling.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:58.915 D/jni_lib_merge(30017): Entering merged library JNI_OnLoad.
+01-16 14:19:58.915 D/jni_lib_merge(30017): Preparing 4 pre-merged libs (including stub)
+01-16 14:19:58.915 D/jni_lib_merge(30017): Preparing to register libhermes_executor_so.  onload_func: 0x726e7327e0
+01-16 14:19:58.915 D/jni_lib_merge(30017): Preparing to register libhermesinstancejni_so.  onload_func: 0x726e76826c
+01-16 14:19:58.915 D/jni_lib_merge(30017): Preparing to register libjsijniprofiler_so.  onload_func: 0x726e76a2bc
+01-16 14:19:58.915 D/jni_lib_merge(30017): About to register 3 actual methods.
+01-16 14:19:58.959 I/ExpoModulesCore(30017): ✅ AppContext was initialized
+01-16 14:19:58.977 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask(): Loading JS Bundle
+01-16 14:19:58.978 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask(): Calling DevSupportManagerBase.onNewReactContextCreated(reactContext)
+01-16 14:19:58.979 W/unknown:BridgelessReact(30017): ReactHost{0}.startSurface(surfaceId = 0): Execute
+01-16 14:19:58.983 W/unknown:ReactNative(30017): Packager connection already open, nooping.
+01-16 14:19:58.983 W/unknown:BridgelessReact(30017): ReactContext.onHostResume()
+01-16 14:19:58.984 W/unknown:BridgelessReact(30017): ReactHost{0}.getOrCreateReactInstanceTask(): Executing ReactInstanceEventListeners
+01-16 14:19:59.144 I/WebViewFactory(30017): Loading com.google.android.webview version 143.0.7499.192 (code 749919233)
+01-16 14:19:59.149 V/ResourcesManager(30017): The following library key has been added: ResourcesKey{ mHash=b53bcc64 mResDir=null mSplitDirs=[] mOverlayDirs=[] mLibDirs=[/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk,/data/app/~~EhTVMa2nsjRJ9rcSf4Xi_g==/com.google.android.trichromelibrary_749919233-4g8UZdzq-8zUjtcAHzEM-g==/base.apk,/system_ext/framework/androidx.window.extensions.jar] mDisplayId=0 mOverrideConfig=v35 mCompatInfo={450dpi always-compat} mLoaders=[]}
+01-16 14:19:59.150 W/yourname.bleapp(30017): Failed to find entry 'classes.dex': Entry not found
+01-16 14:19:59.150 D/nativeloader(30017): Configuring clns-8 for other apk /data/app/~~EhTVMa2nsjRJ9rcSf4Xi_g==/com.google.android.trichromelibrary_749919233-4g8UZdzq-8zUjtcAHzEM-g==/base.apk. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/lib/arm64:/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk!/lib/arm64-v8a:/data/app/~~EhTVMa2nsjRJ9rcSf4Xi_g==/com.google.android.trichromelibrary_749919233-4g8UZdzq-8zUjtcAHzEM-g==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand
+01-16 14:19:59.150 D/nativeloader(30017): Extending system_exposed_libraries: libhumantracking.arcsoft.so:libface_recognition.arcsoft.so:libpic_best.arcsoft.so:libPortraitDistortionCorrection.arcsoft.so:libPortraitDistortionCorrectionCali.arcsoft.so:libface_landmark.arcsoft.so:libFacialStickerEngine.arcsoft.so:libfrtracking_engine.arcsoft.so:libFaceRecognition.arcsoft.so:libveengine.arcsoft.so:lib_pet_detection.arcsoft.so:libae_bracket_hdr.arcsoft.so:libaiclearzoom_raw.arcsoft.so:libacz_hhdr.arcsoft.so:libhybrid_high_dynamic_range.arcsoft.so:libimage_enhancement.arcsoft.so:libmacroclearshot_raw.arcsoft.so:libsuperresolution_raw.arcsoft.so:libobjectcapture_jni.arcsoft.so:libobjectcapture.arcsoft.so:libFacialAttributeDetection.arcsoft.so:libaudiomirroring_jni.audiomirroring.samsung.so:libBeauty_v4.camera.samsung.so:libexifa.camera.samsung.so:libjpega.camera.samsung.so:libOpenCv.camera.samsung.so:libaifrcInterface.camera.samsung.so:libC2paDps.camera.samsung.so:libVideoClassifier.camera.samsung.so:libImageScreener.camera.samsung.so:libMyFilter.camera.sa
+01-16 14:19:59.151 D/ApplicationLoaders(30017): Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+01-16 14:19:59.152 W/yourname.bleapp(30017): Loading /data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/oat/arm64/base.odex non-executable as it requires an image which we failed to load
+01-16 14:19:59.152 D/nativeloader(30017): Configuring clns-9 for other apk /data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/lib/arm64:/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk!/lib/arm64-v8a:/data/app/~~EhTVMa2nsjRJ9rcSf4Xi_g==/com.google.android.trichromelibrary_749919233-4g8UZdzq-8zUjtcAHzEM-g==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand
+01-16 14:19:59.163 I/cr_WVCFactoryProvider(30017): version=143.0.7499.192 (749919233) minSdkVersion=29 multiprocess=true packageId=2 splits=<none>
+01-16 14:19:59.166 D/nativeloader(30017): Load /data/app/~~EhTVMa2nsjRJ9rcSf4Xi_g==/com.google.android.trichromelibrary_749919233-4g8UZdzq-8zUjtcAHzEM-g==/base.apk!/lib/arm64-v8a/libmonochrome_64.so using class loader ns clns-9 (caller=/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk): ok
+01-16 14:19:59.167 D/nativeloader(30017): Load /system/lib64/libwebviewchromium_plat_support.so using class loader ns clns-9 (caller=/data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk): ok
+01-16 14:19:59.170 I/cr_LibraryLoader(30017): Successfully loaded native library
+01-16 14:19:59.171 I/cr_CachingUmaRecorder(30017): Flushed 18 samples from 18 histograms, 0 samples were dropped.
+01-16 14:19:59.175 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libexpo-modules-core.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:59.189 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+01-16 14:19:59.191 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+01-16 14:19:59.192 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.SearchBarManager
+01-16 14:19:59.192 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenFooterManager
+01-16 14:19:59.193 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.gamma.tabs.TabScreenViewManager
+01-16 14:19:59.193 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class expo.modules.kotlin.views.GroupViewManagerWrapper
+01-16 14:19:59.194 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+01-16 14:19:59.195 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.gamma.tabs.TabsHostViewManager
+01-16 14:19:59.196 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ModalScreenViewManager
+01-16 14:19:59.196 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+01-16 14:19:59.197 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenContentWrapperManager
+01-16 14:19:59.197 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+01-16 14:19:59.198 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+01-16 14:19:59.198 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+01-16 14:19:59.198 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+01-16 14:19:59.199 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+01-16 14:19:59.229 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.debuggingoverlay.DebuggingOverlayManager
+01-16 14:19:59.231 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerButtonViewManager
+01-16 14:19:59.234 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.safeareaview.ReactSafeAreaViewManager
+01-16 14:19:59.234 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.safeareaview.ReactSafeAreaViewShadowNode
+01-16 14:19:59.236 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+01-16 14:19:59.239 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+01-16 14:19:59.239 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+01-16 14:19:59.241 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+01-16 14:19:59.242 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+01-16 14:19:59.244 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+01-16 14:19:59.247 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+01-16 14:19:59.251 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+01-16 14:19:59.251 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+01-16 14:19:59.254 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+01-16 14:19:59.257 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.unimplementedview.ReactUnimplementedViewManager
+01-16 14:19:59.259 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+01-16 14:19:59.262 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+01-16 14:19:59.265 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+01-16 14:19:59.268 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+01-16 14:19:59.268 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchShadowNode
+01-16 14:19:59.270 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+01-16 14:19:59.271 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+01-16 14:19:59.273 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+01-16 14:19:59.276 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+01-16 14:19:59.276 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+01-16 14:19:59.277 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+01-16 14:19:59.278 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+01-16 14:19:59.281 W/unknown:ViewManagerPropertyUpdater(30017): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerRootViewManager
+01-16 14:19:59.310 W/BridgelessReactContext(30017): [WARNING] Bridgeless doesn't support CatalystInstance. Accessing an API that's not part of the new architecture is not encouraged usage.
+01-16 14:19:59.313 I/ExpoModulesCore(30017): ✅ JSI interop was installed
+01-16 14:19:59.314 I/ExpoModulesCore(30017): ✅ Constants were exported
+01-16 14:19:59.419 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/librnscreens.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes16.dex): ok
+01-16 14:19:59.444 I/ReactNativeJS(30017): Running "main" with {"rootTag":1,"initialProps":{},"fabric":true}
+01-16 14:19:59.689 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libworklets.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:59.727 D/nativeloader(30017): Load /data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!/lib/arm64-v8a/libreanimated.so using class loader ns clns-7 (caller=/data/app/~~hRcOxyZBRbnjH-3Szp7AUA==/com.yourname.bleapp-HIJTNi8cyaDJDBsJVGXKXw==/base.apk!classes20.dex): ok
+01-16 14:19:59.874 I/BluetoothAdapter(30017): BluetoothAdapter() : com.yourname.bleapp
+01-16 14:19:59.878 I/BluetoothAdapter(30017): BluetoothAdapter() : com.yourname.bleapp
+01-16 14:19:59.935 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 3088 mName = VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb400007044f35000 format= -1 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3386 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 
+01-16 14:19:59.935 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=2 res=0x1 s={true 0xb40000736c3b5800} ch=false seqId=0
+01-16 14:19:59.936 D/VRI[MainActivity]@dc23fca(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:20:00.039 D/ScrollView(30017): initGoToTop
+01-16 14:20:00.040 I/yourname.bleapp(30017): hiddenapi: Accessing hidden field Landroid/widget/ScrollView;->mScroller:Landroid/widget/OverScroller; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/react/views/scroll/ReactScrollView; (domain=app) using reflection: allowed
+01-16 14:20:00.069 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:20:00.077 W/[RNScreens](30017): backTitleVisible prop is not available on Android
+01-16 14:20:00.077 W/[RNScreens](30017): backTitleFontFamily prop is not available on Android
+01-16 14:20:00.077 W/[RNScreens](30017): disableBackButtonMenu prop is not available on Android
+01-16 14:20:00.077 W/[RNScreens](30017): largeTitleFontFamily prop is not available on Android
+01-16 14:20:00.077 W/[RNScreens](30017): largeTitleFontWeight prop is not available on Android
+01-16 14:20:00.077 W/[RNScreens](30017): largeTitleHideShadow prop is not available on Android
+01-16 14:20:00.108 W/unknown:ReactNative(30017): StatusBarModule: Ignored status bar change, current activity is edge-to-edge.
+01-16 14:20:00.108 W/unknown:ReactNative(30017): StatusBarModule: Ignored status bar change, current activity is edge-to-edge.
+01-16 14:20:00.112 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:20:00.156 W/yourname.bleapp(30017): ApkAssets: Deleting an ApkAssets object '<empty> and /data/app/~~CAZzi4QHZmkn3y9d0TKYyw==/com.google.android.webview-Js-9EJ9i9TeCN-xLuBDVtQ==/base.apk' with 2 weak references
+01-16 14:20:00.173 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 3088 mName = VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb4000070454783c0 format= -1 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3386 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 
+01-16 14:20:00.173 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=2 res=0x1 s={true 0xb40000736c3b5800} ch=false seqId=0
+01-16 14:20:00.174 D/VRI[MainActivity]@dc23fca(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:20:00.174 D/VRI[MainActivity]@dc23fca(30017): Setup new sync=wmsSync-VRI[MainActivity]@dc23fca#4
+01-16 14:20:00.174 I/VRI[MainActivity]@dc23fca(30017): Creating new active sync group VRI[MainActivity]@dc23fca#5
+01-16 14:20:00.174 D/VRI[MainActivity]@dc23fca(30017): Draw frame after cancel
+01-16 14:20:00.174 D/VRI[MainActivity]@dc23fca(30017): registerCallbacksForSync syncBuffer=false
+01-16 14:20:00.180 D/VRI[MainActivity]@dc23fca(30017): Received frameDrawingCallback syncResult=0 frameNum=1.
+01-16 14:20:00.180 I/VRI[MainActivity]@dc23fca(30017): mWNT: t=0xb4000073a37c0d80 mBlastBufferQueue=0xb400007361727c00 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$11.onFrameDraw:15016 android.view.ThreadedRenderer$1.onFrameDraw:761 <bottom of call stack> 
+01-16 14:20:00.180 I/VRI[MainActivity]@dc23fca(30017): Setting up sync and frameCommitCallback
+01-16 14:20:00.187 I/BLASTBufferQueue(30017): [VRI[MainActivity]@dc23fca#0](f:0,a:0,s:0) onFrameAvailable the first frame is available
+01-16 14:20:00.187 I/SurfaceComposerClient(30017): apply transaction with the first frame. layerId: 313908, bufferData(ID: 128922033324035, frameNumber: 1)
+01-16 14:20:00.187 I/VRI[MainActivity]@dc23fca(30017): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+01-16 14:20:00.188 D/HWUI    (30017): CFMS:: SetUp Pid : 30017    Tid : 30031
+01-16 14:20:00.188 D/VRI[MainActivity]@dc23fca(30017): reportDrawFinished seqId=0
+01-16 14:20:00.190 W/unknown:BridgelessReact(30017): ReactHost{0}.onUserLeaveHint(activity)
+01-16 14:20:00.191 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostPause(activity)
+01-16 14:20:00.194 D/SensorManager(30017): unregisterListener
+01-16 14:20:00.195 W/unknown:BridgelessReact(30017): ReactContext.onHostPause()
+01-16 14:20:00.227 I/VRI[MainActivity]@dc23fca(30017): registerCallbackForPendingTransactions
+01-16 14:20:00.231 I/VRI[MainActivity]@dc23fca(30017): mWNT: t=0xb4000073a37c1380 mBlastBufferQueue=0xb400007361727c00 fn= 3 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$9.onFrameDraw:6276 android.view.ViewRootImpl$3.onFrameDraw:2440 android.view.ThreadedRenderer$1.onFrameDraw:761 
+01-16 14:20:00.259 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostResume(activity)
+01-16 14:20:00.265 D/SensorManager(30017): registerListener :: 11, lsm6dso LSM6DSO Accelerometer Non-wakeup, 66667, 0, 
+01-16 14:20:00.267 W/unknown:BridgelessReact(30017): ReactContext.onHostResume()
+01-16 14:20:00.271 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:20:00.271 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:20:00.285 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:20:00.295 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb40000736c3b5800}
+01-16 14:20:00.296 D/InputMethodManagerUtils(30017): startInputInner - Id : 0
+01-16 14:20:00.296 I/InputMethodManager(30017): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+01-16 14:20:00.304 D/InputTransport(30017): Input channel constructed: 'ClientS', fd=174
+01-16 14:20:00.310 I/InsetsController(30017): onStateChanged: host=com.yourname.bleapp/com.yourname.bleapp.MainActivity, from=android.view.ViewRootImpl.handleInsetsControlChanged:2888, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(685, 0 - 756, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -9.466666666666667 V 26.66666666666667‬ H 9.466666666666667 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1286, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {960c0000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0005 mType=mandatorySystemGestures mFrame=[0,0][1440,142] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {960c0006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {56fa0001 mType=navigationBars mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0004 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {56fa0005 mType=mandatorySystemGestures mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0006 mType=tappableElement mFrame=[0,2920][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {56fa0024 mType=systemGestures mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null} }
+01-16 14:20:00.310 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:20:04.001 D/ProfileInstaller(30017): Installing profile for com.yourname.bleapp
+01-16 14:20:12.919 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:20:35.904 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:20:38.888 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:20:38.895 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:20:38.897 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:20:38.909 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:20:38.960 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:20:41.485 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:20:44.487 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:20:50.251 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:20:50.256 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:20:50.257 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:20:53.260 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:20:58.685 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:21:27.307 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:22:36.724 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:36.729 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:36.754 I/VRI[MainActivity]@dc23fca(30017): onDisplayChanged oldDisplayState=2 newDisplayState=2
+01-16 14:22:36.914 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:37.155 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:37.463 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:37.614 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:37.714 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:40.716 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:41.589 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:41.592 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:41.635 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:41.688 D/BluetoothAdapter(30017): isLeEnabled(): ON
+01-16 14:22:41.689 D/BluetoothLeScanner(30017): Start Scan with callback
+01-16 14:22:41.691 D/BluetoothLeScanner(30017): onScannerRegistered() - status=0 scannerId=9 mScannerId=0
+01-16 14:22:42.788 D/BluetoothAdapter(30017): isLeEnabled(): ON
+01-16 14:22:42.788 D/BluetoothLeScanner(30017): Stop Scan with callback
+01-16 14:22:42.812 D/BluetoothAdapter(30017): isLeEnabled(): ON
+01-16 14:22:42.813 D/BluetoothGatt(30017): connect() - device: XX:XX:XX:XX:3C:FD, auto: false
+01-16 14:22:42.813 D/BluetoothGatt(30017): registerApp()
+01-16 14:22:42.814 D/BluetoothGatt(30017): registerApp() - UUID=a607d08c-2fed-43d4-8eca-eaa20fb1b049
+01-16 14:22:42.816 D/BluetoothGatt(30017): onClientRegistered() - status=0 clientIf=14
+01-16 14:22:44.006 D/BluetoothGatt(30017): onClientConnectionState() - status=0 clientIf=14 connected=true device=XX:XX:XX:XX:3C:FD
+01-16 14:22:44.024 D/BluetoothGatt(30017): discoverServices() - device: XX:XX:XX:XX:3C:FD
+01-16 14:22:44.061 D/BluetoothGatt(30017): onSearchComplete() = Device=XX:XX:XX:XX:3C:FD Status=0
+01-16 14:22:44.066 D/BluetoothGatt(30017): configureMTU() - device: XX:XX:XX:XX:3C:FD mtu: 247
+01-16 14:22:44.149 D/BluetoothGatt(30017): onConfigureMTU() - Device=XX:XX:XX:XX:3C:FD mtu=247 status=0
+01-16 14:22:44.157 D/BluetoothGatt(30017): setCharacteristicNotification() - uuid: 6e400003-b5a3-f393-e0a9-e50e24dcca9e enable: true
+01-16 14:22:44.417 D/BluetoothGatt(30017): onPhyUpdate() - status=0 address=XX:XX:XX:XX:3C:FD txPhy=2 rxPhy=2
+01-16 14:22:44.636 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:46.349 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:46.352 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:46.406 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:46.444 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:46.450 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:46.450 D/NotificationManager(30017): BOOTING pkg =com.yourname.bleapp mBlockedChannelsForOverflowNoti=[]
+01-16 14:22:46.452 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:49.113 D/BluetoothGatt(30017): onConnectionUpdated() - Device=XX:XX:XX:XX:3C:FD interval=12 latency=0 timeout=400 status=0
+01-16 14:22:49.408 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:49.624 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:49.625 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:49.681 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:49.713 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:50.257 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:50.313 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:50.340 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:50.344 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:50.345 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:50.647 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:50.722 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:50.750 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:51.022 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:51.107 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:51.136 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:51.138 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:51.139 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:51.305 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:51.389 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:51.428 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:51.573 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:51.647 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:51.823 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:51.897 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:52.066 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:52.139 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:52.240 W/System  (30017): A resource failed to call release. 
+01-16 14:22:52.289 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:52.374 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:52.666 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:52.739 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:52.764 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:52.766 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:52.767 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:53.058 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:53.131 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:53.149 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:53.465 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:53.531 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:53.553 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:53.554 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:53.555 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:53.774 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:53.857 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:53.892 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:54.257 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:54.331 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:54.350 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:54.351 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:54.373 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:54.637 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:54.715 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:54.745 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:22:56.048 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:56.114 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:56.149 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:22:56.150 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:22:56.150 I/ReactNativeJS(30017): 'Background service is alive:', 1
+01-16 14:22:56.150 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:22:57.771 I/ReactNativeJS(30017): 'Background service is alive:', 1
+01-16 14:22:58.562 I/ReactNativeJS(30017): 'Background service is alive:', 1
+01-16 14:22:59.115 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:59.379 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:22:59.383 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:22:59.385 I/ReactNativeJS(30017): 'Background service is alive:', 1
+01-16 14:22:59.432 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:22:59.451 I/ReactNativeJS(30017): 녹음 상태 변경: false
+01-16 14:23:00.760 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:23:00.998 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:23:01.925 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:23:02.131 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:23:02.608 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:23:02.665 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:23:02.703 I/ReactNativeJS(30017): 녹음 상태 변경: true
+01-16 14:23:02.705 I/NotificationManager(30017): com.yourname.bleapp: notify(92901, null, Notification(channel=RN_BACKGROUND_ACTIONS_CHANNEL shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT color=0xffff00ff vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+01-16 14:23:02.705 I/ReactNativeJS(30017): 'Background service is alive:', 0
+01-16 14:23:02.779 I/ReactNativeJS(30017): 'Background service is alive:', 2
+01-16 14:23:03.573 I/ReactNativeJS(30017): 'Background service is alive:', 2
+01-16 14:23:04.231 W/unknown:BridgelessReact(30017): ReactHost{0}.onUserLeaveHint(activity)
+01-16 14:23:04.232 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostPause(activity)
+01-16 14:23:04.239 D/SensorManager(30017): unregisterListener
+01-16 14:23:04.239 W/unknown:BridgelessReact(30017): ReactContext.onHostPause()
+01-16 14:23:04.244 I/ImeFocusController(30017): onPreWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+01-16 14:23:04.245 I/ImeFocusController(30017): onPostWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+01-16 14:23:04.321 D/InputTransport(30017): Input channel destroyed: 'ClientS', fd=174
+01-16 14:23:04.420 I/ReactNativeJS(30017): 'Background service is alive:', 2
+01-16 14:23:04.658 I/VRI[MainActivity]@dc23fca(30017): handleAppVisibility mAppVisible = true visible = false
+01-16 14:23:04.659 D/VRI[MainActivity]@dc23fca(30017): visibilityChanged oldVisibility=true newVisibility=false
+01-16 14:23:04.664 D/HWUI    (30017): CacheManager::trimMemory(20)
+01-16 14:23:04.668 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)8 dur=3 res=0x2 s={false 0x0} ch=true seqId=0
+01-16 14:23:04.669 D/VRI[MainActivity]@dc23fca(30017): Not drawing due to not visible. Reason=!mAppVisible && !mForceDecorViewVisibility
+01-16 14:23:04.670 I/VRI[MainActivity]@dc23fca(30017): stopped(true) old = false
+01-16 14:23:04.670 D/VRI[MainActivity]@dc23fca(30017): WindowStopped on com.yourname.bleapp/com.yourname.bleapp.MainActivity set to true
+01-16 14:23:04.670 D/HWUI    (30017): CacheManager::trimMemory(20)
+01-16 14:23:06.309 I/VRI[MainActivity]@dc23fca(30017): handleAppVisibility mAppVisible = false visible = true
+01-16 14:23:06.310 I/VRI[MainActivity]@dc23fca(30017): stopped(false) old = true
+01-16 14:23:06.310 D/VRI[MainActivity]@dc23fca(30017): WindowStopped on com.yourname.bleapp/com.yourname.bleapp.MainActivity set to false
+01-16 14:23:06.312 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostResume(activity)
+01-16 14:23:06.319 D/SensorManager(30017): registerListener :: 11, lsm6dso LSM6DSO Accelerometer Non-wakeup, 66667, 0, 
+01-16 14:23:06.326 W/unknown:BridgelessReact(30017): ReactContext.onHostResume()
+01-16 14:23:06.381 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:06.381 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:06.381 I/BufferQueueProducer(30017): [](id:754100000002,api:0,p:0,c:30017) setDequeueTimeout:2077252342
+01-16 14:23:06.382 I/BLASTBufferQueue_Java(30017): new BLASTBufferQueue, mName= VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb40000703d36de80 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 android.view.Choreographer.doCallbacks:1216 android.view.Choreographer.doFrame:1142 android.view.Choreographer$FrameDisplayEventReceiver.run:1707 
+01-16 14:23:06.382 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 3088 mName = VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb40000703d36de80 format= -1 caller= android.graphics.BLASTBufferQueue.<init>:88 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 
+01-16 14:23:06.382 W/libc    (30017): Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+01-16 14:23:06.382 W/libc    (30017): Access denied finding property "vendor.gpp.create_frc_extension"
+01-16 14:23:06.382 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=5 res=0x3 s={true 0xb40000736c3b5800} ch=true seqId=0
+01-16 14:23:06.382 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000736c3b5800} hwInitialized=true
+01-16 14:23:06.383 D/VRI[MainActivity]@dc23fca(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:23:06.383 D/VRI[MainActivity]@dc23fca(30017): Setup new sync=wmsSync-VRI[MainActivity]@dc23fca#6
+01-16 14:23:06.383 I/VRI[MainActivity]@dc23fca(30017): Creating new active sync group VRI[MainActivity]@dc23fca#7
+01-16 14:23:06.383 D/VRI[MainActivity]@dc23fca(30017): Start draw after previous draw not visible
+01-16 14:23:06.383 D/VRI[MainActivity]@dc23fca(30017): registerCallbacksForSync syncBuffer=false
+01-16 14:23:06.388 D/VRI[MainActivity]@dc23fca(30017): Received frameDrawingCallback syncResult=0 frameNum=1.
+01-16 14:23:06.388 I/VRI[MainActivity]@dc23fca(30017): mWNT: t=0xb40000703d752200 mBlastBufferQueue=0xb400007361727c00 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$11.onFrameDraw:15016 android.view.ThreadedRenderer$1.onFrameDraw:761 <bottom of call stack> 
+01-16 14:23:06.388 I/VRI[MainActivity]@dc23fca(30017): Setting up sync and frameCommitCallback
+01-16 14:23:06.389 I/BLASTBufferQueue(30017): [VRI[MainActivity]@dc23fca#2](f:0,a:0,s:0) onFrameAvailable the first frame is available
+01-16 14:23:06.389 I/SurfaceComposerClient(30017): apply transaction with the first frame. layerId: 313945, bufferData(ID: 128922033324043, frameNumber: 1)
+01-16 14:23:06.390 I/VRI[MainActivity]@dc23fca(30017): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+01-16 14:23:06.390 D/VRI[MainActivity]@dc23fca(30017): reportDrawFinished seqId=0
+01-16 14:23:06.407 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb40000736c3b5800}
+01-16 14:23:06.408 D/InputMethodManagerUtils(30017): startInputInner - Id : 0
+01-16 14:23:06.408 I/InputMethodManager(30017): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+01-16 14:23:06.410 D/InputTransport(30017): Input channel constructed: 'ClientS', fd=169
+01-16 14:23:06.416 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:06.417 I/VRI[MainActivity]@dc23fca(30017): handleResized, frames=ClientWindowFrames{frame=[0,0][1440,3088] display=[0,0][1440,3088] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+01-16 14:23:07.725 I/ReactNativeJS(30017): 'Background service is alive:', 1
+01-16 14:23:07.794 W/unknown:BridgelessReact(30017): ReactHost{0}.onUserLeaveHint(activity)
+01-16 14:23:07.795 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostPause(activity)
+01-16 14:23:07.796 I/ReactNativeJS(30017): 'Background service is alive:', 3
+01-16 14:23:07.798 D/SensorManager(30017): unregisterListener
+01-16 14:23:07.798 W/unknown:BridgelessReact(30017): ReactContext.onHostPause()
+01-16 14:23:07.802 I/ImeFocusController(30017): onPreWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+01-16 14:23:07.803 I/ImeFocusController(30017): onPostWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+01-16 14:23:07.851 D/InputTransport(30017): Input channel destroyed: 'ClientS', fd=169
+01-16 14:23:08.199 I/VRI[MainActivity]@dc23fca(30017): handleAppVisibility mAppVisible = true visible = false
+01-16 14:23:08.199 D/VRI[MainActivity]@dc23fca(30017): visibilityChanged oldVisibility=true newVisibility=false
+01-16 14:23:08.206 D/HWUI    (30017): CacheManager::trimMemory(20)
+01-16 14:23:08.209 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)8 dur=2 res=0x2 s={false 0x0} ch=true seqId=0
+01-16 14:23:08.209 D/VRI[MainActivity]@dc23fca(30017): Not drawing due to not visible. Reason=!mAppVisible && !mForceDecorViewVisibility
+01-16 14:23:08.209 I/VRI[MainActivity]@dc23fca(30017): stopped(true) old = false
+01-16 14:23:08.209 D/VRI[MainActivity]@dc23fca(30017): WindowStopped on com.yourname.bleapp/com.yourname.bleapp.MainActivity set to true
+01-16 14:23:08.209 D/HWUI    (30017): CacheManager::trimMemory(20)
+01-16 14:23:08.579 I/ReactNativeJS(30017): 'Background service is alive:', 3
+01-16 14:23:09.445 I/ReactNativeJS(30017): 'Background service is alive:', 3
+01-16 14:23:09.626 I/VRI[MainActivity]@dc23fca(30017): handleAppVisibility mAppVisible = false visible = true
+01-16 14:23:09.628 I/VRI[MainActivity]@dc23fca(30017): stopped(false) old = true
+01-16 14:23:09.628 D/VRI[MainActivity]@dc23fca(30017): WindowStopped on com.yourname.bleapp/com.yourname.bleapp.MainActivity set to false
+01-16 14:23:09.630 W/unknown:BridgelessReact(30017): ReactHost{0}.onHostResume(activity)
+01-16 14:23:09.638 D/SensorManager(30017): registerListener :: 11, lsm6dso LSM6DSO Accelerometer Non-wakeup, 66667, 0, 
+01-16 14:23:09.641 W/unknown:BridgelessReact(30017): ReactContext.onHostResume()
+01-16 14:23:09.669 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:09.670 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:09.670 I/BufferQueueProducer(30017): [](id:754100000003,api:0,p:114,c:30017) setDequeueTimeout:2077252342
+01-16 14:23:09.670 I/BLASTBufferQueue_Java(30017): new BLASTBufferQueue, mName= VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb40000703da1b2c0 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 android.view.Choreographer.doCallbacks:1216 android.view.Choreographer.doFrame:1142 android.view.Choreographer$FrameDisplayEventReceiver.run:1707 
+01-16 14:23:09.670 I/BLASTBufferQueue_Java(30017): update, w= 1440 h= 3088 mName = VRI[MainActivity]@dc23fca mNativeObject= 0xb400007361727c00 sc.mNativeObject= 0xb40000703da1b2c0 format= -1 caller= android.graphics.BLASTBufferQueue.<init>:88 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3397 android.view.ViewRootImpl.relayoutWindow:11361 android.view.ViewRootImpl.performTraversals:4544 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 
+01-16 14:23:09.671 W/libc    (30017): Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+01-16 14:23:09.671 W/libc    (30017): Access denied finding property "vendor.gpp.create_frc_extension"
+01-16 14:23:09.671 I/VRI[MainActivity]@dc23fca(30017): Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=5 res=0x3 s={true 0xb40000736c3b5800} ch=true seqId=0
+01-16 14:23:09.671 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000736c3b5800} hwInitialized=true
+01-16 14:23:09.672 D/VRI[MainActivity]@dc23fca(30017): reportNextDraw android.view.ViewRootImpl.performTraversals:5193 android.view.ViewRootImpl.doTraversal:3708 android.view.ViewRootImpl$TraversalRunnable.run:12542 android.view.Choreographer$CallbackRecord.run:1751 android.view.Choreographer$CallbackRecord.run:1760 
+01-16 14:23:09.672 D/VRI[MainActivity]@dc23fca(30017): Setup new sync=wmsSync-VRI[MainActivity]@dc23fca#8
+01-16 14:23:09.672 I/VRI[MainActivity]@dc23fca(30017): Creating new active sync group VRI[MainActivity]@dc23fca#9
+01-16 14:23:09.672 D/VRI[MainActivity]@dc23fca(30017): Start draw after previous draw not visible
+01-16 14:23:09.672 D/VRI[MainActivity]@dc23fca(30017): registerCallbacksForSync syncBuffer=false
+01-16 14:23:09.676 D/VRI[MainActivity]@dc23fca(30017): Received frameDrawingCallback syncResult=0 frameNum=1.
+01-16 14:23:09.676 I/VRI[MainActivity]@dc23fca(30017): mWNT: t=0xb40000703dac2080 mBlastBufferQueue=0xb400007361727c00 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$11.onFrameDraw:15016 android.view.ThreadedRenderer$1.onFrameDraw:761 <bottom of call stack> 
+01-16 14:23:09.676 I/VRI[MainActivity]@dc23fca(30017): Setting up sync and frameCommitCallback
+01-16 14:23:09.677 I/BLASTBufferQueue(30017): [VRI[MainActivity]@dc23fca#3](f:0,a:0,s:0) onFrameAvailable the first frame is available
+01-16 14:23:09.677 I/SurfaceComposerClient(30017): apply transaction with the first frame. layerId: 313971, bufferData(ID: 128922033324047, frameNumber: 1)
+01-16 14:23:09.678 I/VRI[MainActivity]@dc23fca(30017): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+01-16 14:23:09.678 D/VRI[MainActivity]@dc23fca(30017): reportDrawFinished seqId=0
+01-16 14:23:09.691 D/VRI[MainActivity]@dc23fca(30017): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb40000736c3b5800}
+01-16 14:23:09.692 D/InputMethodManagerUtils(30017): startInputInner - Id : 0
+01-16 14:23:09.692 I/InputMethodManager(30017): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+01-16 14:23:09.694 D/InputTransport(30017): Input channel constructed: 'ClientS', fd=163
+01-16 14:23:09.707 I/InsetsSourceConsumer(30017): applyRequestedVisibilityToControl: visible=false, type=ime, host=com.yourname.bleapp/com.yourname.bleapp.MainActivity
+01-16 14:23:09.708 I/VRI[MainActivity]@dc23fca(30017): handleResized, frames=ClientWindowFrames{frame=[0,0][1440,3088] display=[0,0][1440,3088] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+01-16 14:23:11.404 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 0
+01-16 14:23:11.406 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@dc23fca
+01-16 14:23:11.461 I/VRI[MainActivity]@dc23fca(30017): ViewPostIme pointer 1
+01-16 14:23:12.751 I/ReactNativeJS(30017): 'Background service is alive:', 2
+01-16 14:23:12.827 I/ReactNativeJS(30017): 'Background service is alive:', 4
+01-16 14:23:13.582 I/ReactNativeJS(30017): 'Background service is alive:', 4
+01-16 14:23:14.448 I/ReactNativeJS(30017): 'Background service is alive:', 4
+01-16 14:23:14.462 I/VRI[MainActivity]@dc23fca(30017): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@dc23fca
+01-16 14:23:17.758 I/ReactNativeJS(30017): 'Background service is alive:', 3
+01-16 14:23:17.834 I/ReactNativeJS(30017): 'Background service is alive:', 5
+01-16 14:23:18.608 I/ReactNativeJS(30017): 'Background service is alive:', 5
+01-16 14:23:19.458 I/ReactNativeJS(30017): 'Background service is alive:', 5
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): Error occurred, shutting down websocket connection: Websocket exception
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): java.io.EOFException
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okio.RealBufferedSource.require(RealBufferedSource.kt:204)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okio.RealBufferedSource.readByte(RealBufferedSource.kt:214)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.lang.Thread.run(Thread.java:1119)
+01-16 14:23:19.536 W/unknown:ReconnectingWebSocket(30017): Couldn't connect to "ws://localhost:8081/message?device=SM-S918N%20-%2015%20-%20API%2035&app=com.yourname.bleapp&clientid=BridgelessDevSupportManager", will silently retry
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): Error occurred, shutting down websocket connection: Websocket exception
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): java.io.EOFException
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okio.RealBufferedSource.require(RealBufferedSource.kt:204)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okio.RealBufferedSource.readByte(RealBufferedSource.kt:214)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+01-16 14:23:19.536 E/unknown:ReconnectingWebSocket(30017): 	at java.lang.Thread.run(Thread.java:1119)
+01-16 14:23:19.536 W/unknown:ReconnectingWebSocket(30017): Couldn't connect to "ws://localhost:8081/message?device=SM-S918N%20-%2015%20-%20API%2035&app=com.yourname.bleapp&clientid=BridgelessDevSupportManager", will silently retry
+01-16 14:23:19.544 W/ReactNativeJS(30017): Cannot connect to Metro.
+01-16 14:23:19.544 W/ReactNativeJS(30017): 
+01-16 14:23:19.544 W/ReactNativeJS(30017): Try the following to fix the issue:
+01-16 14:23:19.544 W/ReactNativeJS(30017): - Ensure that Metro is running and available on the same network
+01-16 14:23:19.544 W/ReactNativeJS(30017): - Ensure that your device/emulator is connected to your machine and has USB debugging enabled - run 'adb devices' to see a list of connected devices
+01-16 14:23:19.544 W/ReactNativeJS(30017): - If you're on a physical device connected to the same machine, run 'adb reverse tcp:8081 tcp:8081' to forward requests from your device
+01-16 14:23:19.544 W/ReactNativeJS(30017): - If your device is on the same Wi-Fi network, set 'Debug server host & port for device' in 'Dev settings' to your machine's IP address and the port of the local dev server - e.g. 10.0.1.1:8081
+01-16 14:23:19.544 W/ReactNativeJS(30017): 
+01-16 14:23:19.544 W/ReactNativeJS(30017): URL: localhost:8081
+01-16 14:23:19.544 W/ReactNativeJS(30017): 
+01-16 14:23:19.544 W/ReactNativeJS(30017): Error: undefined
