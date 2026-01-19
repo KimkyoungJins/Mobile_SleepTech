@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-BLE Sleep Data Recorder - A React Native/Expo app that connects to Nordic UART BLE devices to capture sensor data with background recording support. The UI is in Korean.
+BLE Sleep Data Recorder - A React Native/Expo app that connects to Nordic UART BLE devices to capture sensor data with background recording support. Optimized for long-duration (8+ hours) recording on Samsung Android devices. The UI is in Korean.
 
 ## Development Commands
 
@@ -24,7 +24,7 @@ For native builds, Android requires Gradle and iOS requires CocoaPods (`cd ios &
 ### Core Stack
 - **Expo 54** with Expo Router (file-based routing)
 - **React Native 0.81** with New Architecture enabled
-- **TypeScript** (strict mode disabled)
+- **TypeScript** (strict mode disabled, paths alias `@/*` → `./*`)
 
 ### Key Libraries
 - `react-native-ble-plx` - BLE communication
@@ -38,27 +38,16 @@ The app connects to Nordic UART Service devices:
 - **TX Characteristic:** `6E400003-B5A3-F393-E0A9-E50E24DCCA9E`
 - **Device filter:** `Nordic_UART_S`
 
-### Directory Structure
-```
-app/                  # Expo Router screens (file-based routing)
-  (tabs)/             # Tab navigation group
-    index.tsx         # Main BLE connection & recording screen
-    explore.tsx       # Documentation/info screen
-components/           # Reusable UI components
-  ui/                 # Platform-specific UI primitives
-hooks/                # Custom React hooks (theme, color scheme)
-constants/            # Theme colors and fonts (theme.ts)
-```
-
 ### Data Flow
 1. App scans for BLE devices matching `Nordic_UART_S`
 2. Connects and monitors TX characteristic for incoming data
-3. Data is decoded from base64 and written to `Documents/data.raw`
+3. Data buffered in memory, flushed to `Documents/data.raw` every 5 seconds (batch writes for efficiency)
 4. Background service keeps recording active when app is minimized
-5. File can be shared via OS share dialog
+5. Auto-reconnect on disconnection (up to 10 attempts when recording)
+6. File can be shared via OS share dialog
 
 ### Platform-Specific Notes
-- **Android:** Requests MTU of 247 bytes; requires runtime permissions for BLE and notifications
+- **Android:** Requests MTU of 247 bytes; requires runtime permissions for BLE and notifications; prompts user to disable battery optimization for reliable 8+ hour recording
 - **iOS:** Bluetooth permissions configured in app.json infoPlist
 - **Bundle ID:** `com.yourname.bleapp` (both platforms)
 
@@ -66,3 +55,4 @@ constants/            # Theme colors and fonts (theme.ts)
 Uses `useRef` for state values needed in BLE callbacks (ensures latest values in background contexts):
 - `isRecordingRef` - tracks recording state for background writes
 - `timeRef` - throttles UI log updates (10-second interval)
+- `writeBufferRef` - accumulates data between flush intervals
