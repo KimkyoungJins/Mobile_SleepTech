@@ -14,7 +14,7 @@
  * =============================================================================
  */
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Alert,
   FlatList,
@@ -27,7 +27,13 @@ import * as Sharing from 'expo-sharing';
 import RNFS from 'react-native-fs';
 
 import { useBLE, LogEntry } from '../../hooks/useBLE';
-import { FILE_PATH, resetFileStorage } from '../../services/fileStorage';
+import {
+  getFilePath,
+  resetFileStorage,
+  getFileInfo,
+  deleteLocalFile,
+  FileInfo,
+} from '../../services/fileStorage';
 
 /**
  * HomeScreen - 앱의 메인 화면 컴포넌트
@@ -45,23 +51,60 @@ export default function HomeScreen() {
     addLog,
   } = useBLE();
 
+  // 파일 정보 상태
+  const [fileInfo, setFileInfo] = useState<FileInfo>({
+    exists: false,
+    name: 'data.raw',
+    size: 0,
+    sizeFormatted: '0 KB',
+  });
+
+  // 파일 정보 새로고침
+  const refreshFileInfo = useCallback(async () => {
+    const info = await getFileInfo();
+    setFileInfo(info);
+  }, []);
+
+  // 주기적으로 파일 정보 업데이트 (녹음 중일 때)
+  useEffect(() => {
+    refreshFileInfo();
+
+    if (isRecording) {
+      const interval = setInterval(refreshFileInfo, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isRecording, refreshFileInfo]);
+
   /**
    * 저장된 데이터 파일 삭제
    */
   const deleteFile = async () => {
-    try {
-      const exists = await RNFS.exists(FILE_PATH);
-      if (exists) {
-        await RNFS.unlink(FILE_PATH);
-        addLog('파일 삭제 완료');
-        Alert.alert('알림', '저장된 데이터 파일이 삭제되었습니다.');
-        resetFileStorage();
-      } else {
-        Alert.alert('알림', '삭제할 파일이 없습니다.');
-      }
-    } catch (e: any) {
-      addLog(`삭제 실패: ${e.message}`);
+    if (!fileInfo.exists) {
+      Alert.alert('알림', '삭제할 파일이 없습니다.');
+      return;
     }
+
+    Alert.alert(
+      '파일 삭제',
+      `${fileInfo.name} (${fileInfo.sizeFormatted})을(를) 삭제하시겠습니까?`,
+      [
+        { text: '취소', style: 'cancel' },
+        {
+          text: '삭제',
+          style: 'destructive',
+          onPress: async () => {
+            const deleted = await deleteLocalFile();
+            if (deleted) {
+              addLog('파일 삭제 완료');
+              Alert.alert('알림', '파일이 삭제되었습니다.');
+              refreshFileInfo();
+            } else {
+              addLog('파일 삭제 실패');
+            }
+          },
+        },
+      ]
+    );
   };
 
   /**
@@ -69,7 +112,8 @@ export default function HomeScreen() {
    */
   const shareFile = async () => {
     try {
-      const exists = await RNFS.exists(FILE_PATH);
+      const filePath = getFilePath();
+      const exists = await RNFS.exists(filePath);
       if (!exists) {
         Alert.alert('알림', '공유할 녹음 파일이 없습니다.');
         return;
@@ -80,7 +124,7 @@ export default function HomeScreen() {
         return;
       }
 
-      const fileUri = 'file://' + FILE_PATH;
+      const fileUri = 'file://' + filePath;
       await Sharing.shareAsync(fileUri, {
         mimeType: 'application/octet-stream',
         dialogTitle: '녹음 데이터 공유',
@@ -160,20 +204,45 @@ export default function HomeScreen() {
 
       {/* 파일 관리 영역 */}
       <View style={styles.fileSection}>
-        <Text style={styles.filePath}>경로: .../Documents/data.raw</Text>
+        <View style={styles.fileInfoBox}>
+          <Text style={styles.fileInfoTitle}>로컬 저장 파일</Text>
+          {fileInfo.exists ? (
+            <View style={styles.fileInfoContent}>
+              <Text style={styles.fileName}>{fileInfo.name}</Text>
+              <Text style={styles.fileSize}>{fileInfo.sizeFormatted}</Text>
+            </View>
+          ) : (
+            <Text style={styles.noFile}>저장된 파일 없음</Text>
+          )}
+        </View>
         <View style={styles.actionButtonRow}>
           <TouchableOpacity
             onPress={shareFile}
-            style={[styles.actionBtn, { backgroundColor: '#5856D6' }]}
+            style={[
+              styles.actionBtn,
+              { backgroundColor: fileInfo.exists ? '#5856D6' : '#ccc' },
+            ]}
+            disabled={!fileInfo.exists}
           >
-            <Text style={styles.actionBtnText}>📤 내보내기</Text>
+            <Text style={styles.actionBtnText}>내보내기</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={deleteFile}
-            style={[styles.actionBtn, { backgroundColor: '#FF3B30' }]}
+            style={[
+              styles.actionBtn,
+              { backgroundColor: fileInfo.exists ? '#FF3B30' : '#ccc' },
+            ]}
+            disabled={!fileInfo.exists}
           >
-            <Text style={styles.actionBtnText}>🗑 삭제</Text>
+            <Text style={styles.actionBtnText}>삭제</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={refreshFileInfo}
+            style={[styles.actionBtn, { backgroundColor: '#007AFF' }]}
+          >
+            <Text style={styles.actionBtnText}>새로고침</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -253,10 +322,37 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: 'center',
   },
-  filePath: {
-    fontSize: 12,
-    color: '#999',
+  fileInfoBox: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
+    width: '100%',
     marginBottom: 10,
+  },
+  fileInfoTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+  },
+  fileInfoContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  fileName: {
+    fontSize: 16,
+    color: '#007AFF',
+  },
+  fileSize: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: 'bold',
+  },
+  noFile: {
+    fontSize: 14,
+    color: '#999',
+    fontStyle: 'italic',
   },
   actionButtonRow: {
     flexDirection: 'row',

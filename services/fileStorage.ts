@@ -15,11 +15,37 @@ import { getTimestamp } from '../utils/helpers';
 
 // ===================== 상수 =====================
 
-/** 저장 파일 경로 */
-export const FILE_PATH = `${RNFS.DocumentDirectoryPath}/data.raw`;
+/** 저장 디렉토리 */
+export const STORAGE_DIR = RNFS.DocumentDirectoryPath;
 
 /** 버퍼 flush 간격 (5초) */
 export const FLUSH_INTERVAL = 5000;
+
+/** 현재 파일명 (세션 ID 기반) */
+let globalFileName: string = 'data.raw';
+
+/** 파일명 설정 (녹음 시작 시 호출) */
+export const setFileName = (sessionId: string) => {
+  globalFileName = `${sessionId}.raw`;
+};
+
+/** 현재 파일 경로 조회 */
+export const getFilePath = (): string => {
+  return `${STORAGE_DIR}/${globalFileName}`;
+};
+
+/** 현재 파일명 조회 */
+export const getFileName = (): string => {
+  return globalFileName;
+};
+
+/** 파일명 초기화 */
+export const resetFileName = () => {
+  globalFileName = 'data.raw';
+};
+
+// 하위 호환성을 위한 FILE_PATH (현재 파일 경로 반환)
+export const FILE_PATH = `${STORAGE_DIR}/data.raw`;
 
 // ===================== 전역 상태 =====================
 
@@ -127,16 +153,17 @@ export const globalFlushBuffer = async () => {
     // Base64로 인코딩 후 파일에 쓰기
     const combinedBase64 = fromByteArray(combinedArray);
 
+    const filePath = getFilePath();
     if (!globalFileInitialized) {
-      const exists = await RNFS.exists(FILE_PATH);
+      const exists = await RNFS.exists(filePath);
       if (exists) {
-        await RNFS.appendFile(FILE_PATH, combinedBase64, 'base64');
+        await RNFS.appendFile(filePath, combinedBase64, 'base64');
       } else {
-        await RNFS.writeFile(FILE_PATH, combinedBase64, 'base64');
+        await RNFS.writeFile(filePath, combinedBase64, 'base64');
       }
       globalFileInitialized = true;
     } else {
-      await RNFS.appendFile(FILE_PATH, combinedBase64, 'base64');
+      await RNFS.appendFile(filePath, combinedBase64, 'base64');
     }
 
     console.log(`[${getTimestamp()}] 백그라운드 저장: ${chunksToWrite.length}개 청크 (${totalLength} bytes)`);
@@ -154,4 +181,82 @@ export const globalFlushBuffer = async () => {
 export const resetFileStorage = () => {
   globalFileInitialized = false;
   globalWriteBuffer = [];
+};
+
+// ===================== 파일 관리 =====================
+
+/** 파일 정보 타입 */
+export interface FileInfo {
+  exists: boolean;
+  name: string;
+  size: number;
+  sizeFormatted: string;
+}
+
+/**
+ * 저장된 파일 정보 조회
+ */
+export const getFileInfo = async (): Promise<FileInfo> => {
+  const filePath = getFilePath();
+  const fileName = getFileName();
+
+  try {
+    const exists = await RNFS.exists(filePath);
+    if (!exists) {
+      return {
+        exists: false,
+        name: fileName,
+        size: 0,
+        sizeFormatted: '0 KB',
+      };
+    }
+
+    const stat = await RNFS.stat(filePath);
+    const size = Number(stat.size);
+
+    // 크기 포맷팅
+    let sizeFormatted: string;
+    if (size < 1024) {
+      sizeFormatted = `${size} B`;
+    } else if (size < 1024 * 1024) {
+      sizeFormatted = `${(size / 1024).toFixed(1)} KB`;
+    } else {
+      sizeFormatted = `${(size / (1024 * 1024)).toFixed(2)} MB`;
+    }
+
+    return {
+      exists: true,
+      name: fileName,
+      size,
+      sizeFormatted,
+    };
+  } catch (error) {
+    return {
+      exists: false,
+      name: fileName,
+      size: 0,
+      sizeFormatted: '0 KB',
+    };
+  }
+};
+
+/**
+ * 저장된 파일 삭제
+ */
+export const deleteLocalFile = async (): Promise<boolean> => {
+  const filePath = getFilePath();
+  try {
+    const exists = await RNFS.exists(filePath);
+    if (exists) {
+      await RNFS.unlink(filePath);
+      resetFileStorage();
+      resetUploadState();
+      console.log(`[${getTimestamp()}] 로컬 파일 삭제됨: ${getFileName()}`);
+      return true;
+    }
+    return false;
+  } catch (error: any) {
+    console.log(`[${getTimestamp()}] 파일 삭제 에러:`, error.message);
+    return false;
+  }
 };

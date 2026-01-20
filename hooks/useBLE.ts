@@ -15,6 +15,7 @@ import {
   MAX_RECONNECT_ATTEMPTS,
   ANDROID_MTU_SIZE,
 } from '../constants/ble';
+import RNFS from 'react-native-fs';
 import {
   globalIsRecording,
   setGlobalIsRecording,
@@ -24,6 +25,8 @@ import {
   setSessionId,
   resetSessionId,
   resetUploadState,
+  getFilePath,
+  setFileName,
 } from '../services/fileStorage';
 import { generateSessionId, uploadChunk, finishSession } from '../services/uploadService';
 import { startBackgroundService, stopBackgroundService } from '../services/backgroundService';
@@ -384,11 +387,14 @@ export const useBLE = (): UseBLEReturn => {
     if (nextState) {
       // 녹음 시작
       try {
-        // 세션 ID 생성 및 업로드 상태 초기화
+        // 세션 ID 생성 및 파일명 설정
         const newSessionId = generateSessionId();
         setSessionId(newSessionId);
+        setFileName(newSessionId);  // 파일명: {세션ID}.raw
         resetUploadState();
-        console.log(`[세션 시작] session_id: ${newSessionId}`);
+        resetFileStorage();
+
+        console.log(`[세션 시작] session_id: ${newSessionId}, 파일: ${newSessionId}.raw`);
         addLog(`세션 시작: ${newSessionId}`);
 
         const started = await startBackgroundService();

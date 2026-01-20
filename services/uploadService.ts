@@ -13,7 +13,7 @@
 import RNFS from 'react-native-fs';
 import { getTimestamp } from '../utils/helpers';
 import {
-  FILE_PATH,
+  getFilePath,
   getSessionId,
   getLastSentOffset,
   updateLastSentOffset,
@@ -23,6 +23,12 @@ import {
 
 /** 서버 Base URL */
 const BASE_URL = 'http://52.64.123.5:8000';
+
+/** 노이즈 필터 강도 (0.0 ~ 1.0) */
+const NOISE_LEVEL = '0.8';
+
+/** 필터 사용 여부 */
+const FILTER_OPTION = 'true';
 
 // ===================== 세션 ID 생성 =====================
 
@@ -45,7 +51,6 @@ export const generateSessionId = (): string => {
 
 /**
  * 새 데이터 청크를 서버에 업로드
- *
  * @returns 성공 여부
  */
 export const uploadChunk = async (): Promise<boolean> => {
@@ -57,15 +62,17 @@ export const uploadChunk = async (): Promise<boolean> => {
   }
 
   try {
+    const filePath = getFilePath();
+
     // 파일 존재 확인
-    const exists = await RNFS.exists(FILE_PATH);
+    const exists = await RNFS.exists(filePath);
     if (!exists) {
       console.log(`[${getTimestamp()}] 업로드 스킵: 파일 없음`);
       return false;
     }
 
     // 파일 크기 확인
-    const stat = await RNFS.stat(FILE_PATH);
+    const stat = await RNFS.stat(filePath);
     const fileSize = Number(stat.size);
     const lastOffset = getLastSentOffset();
 
@@ -77,7 +84,7 @@ export const uploadChunk = async (): Promise<boolean> => {
 
     // 새 데이터 읽기 (base64로 읽은 후 전송)
     const newDataLength = fileSize - lastOffset;
-    const newDataBase64 = await RNFS.read(FILE_PATH, newDataLength, lastOffset, 'base64');
+    const newDataBase64 = await RNFS.read(filePath, newDataLength, lastOffset, 'base64');
 
     console.log(`[${getTimestamp()}] 업로드 시작: ${newDataLength} bytes`);
 
@@ -89,6 +96,8 @@ export const uploadChunk = async (): Promise<boolean> => {
       name: `${sessionId}.bin`,
     } as any);
     formData.append('session_id', sessionId);
+    formData.append('noise_level', NOISE_LEVEL);
+    formData.append('filter_option', FILTER_OPTION);
 
     // 서버 전송
     const response = await fetch(`${BASE_URL}/upload`, {
