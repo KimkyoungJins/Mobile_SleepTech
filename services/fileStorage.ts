@@ -37,6 +37,42 @@ export const setGlobalIsRecording = (value: boolean) => {
   globalIsRecording = value;
 };
 
+/** 현재 세션 ID (서버 업로드용) */
+let globalSessionId: string | null = null;
+
+/** 마지막으로 서버에 전송한 파일 위치 (바이트) */
+let globalLastSentOffset: number = 0;
+
+/** 세션 ID 설정 */
+export const setSessionId = (id: string) => {
+  globalSessionId = id;
+};
+
+/** 세션 ID 조회 */
+export const getSessionId = (): string | null => {
+  return globalSessionId;
+};
+
+/** 세션 ID 초기화 */
+export const resetSessionId = () => {
+  globalSessionId = null;
+};
+
+/** 마지막 전송 위치 조회 */
+export const getLastSentOffset = (): number => {
+  return globalLastSentOffset;
+};
+
+/** 마지막 전송 위치 업데이트 */
+export const updateLastSentOffset = (offset: number) => {
+  globalLastSentOffset = offset;
+};
+
+/** 업로드 상태 초기화 (녹음 시작 시 호출) */
+export const resetUploadState = () => {
+  globalLastSentOffset = 0;
+};
+
 // ===================== 데이터 처리 =====================
 
 /**

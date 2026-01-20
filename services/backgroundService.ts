@@ -17,6 +17,10 @@ import {
   globalWriteBuffer,
   FLUSH_INTERVAL
 } from './fileStorage';
+import { uploadChunk } from './uploadService';
+
+/** 업로드 주기 (30초 = 6번의 flush 사이클) */
+const UPLOAD_CYCLE = 6;
 
 // ===================== 백그라운드 태스크 =====================
 
@@ -24,18 +28,27 @@ import {
  * 백그라운드에서 실행되는 메인 함수
  * - 무한 루프로 5초마다 실행
  * - 녹음 중이면 버퍼를 파일에 저장
+ * - 30초마다 서버에 업로드
  */
 export const backgroundTask = async (taskDataArguments: { delay: number }) => {
   const { delay } = taskDataArguments;
+  let flushCount = 0;
 
   await new Promise<void>(async (resolve) => {
     for (let i = 0; BackgroundService.isRunning(); i++) {
       // 녹음 중이면 버퍼 → 파일 저장
       if (globalIsRecording) {
         await globalFlushBuffer();
+        flushCount++;
+
+        // 30초마다 서버 업로드 (6번의 flush 사이클)
+        if (flushCount >= UPLOAD_CYCLE) {
+          await uploadChunk();
+          flushCount = 0;
+        }
       }
 
-      console.log(`[${getTimestamp()}] Background service alive: ${i}, recording: ${globalIsRecording}, buffer: ${globalWriteBuffer.length}`);
+      console.log(`[${getTimestamp()}] Background: cycle=${i}, recording=${globalIsRecording}, buffer=${globalWriteBuffer.length}, flushCount=${flushCount}`);
       await sleep(delay);
     }
   });

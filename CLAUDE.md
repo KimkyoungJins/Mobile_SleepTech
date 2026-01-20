@@ -56,3 +56,15 @@ Uses `useRef` for state values needed in BLE callbacks (ensures latest values in
 - `isRecordingRef` - tracks recording state for background writes
 - `timeRef` - throttles UI log updates (10-second interval)
 - `writeBufferRef` - accumulates data between flush intervals
+
+### Key Files
+- `hooks/useBLE.ts` - Core BLE logic: scanning, connection, monitoring, auto-reconnect
+- `services/fileStorage.ts` - Global state for file buffer and flush operations (uses globals for HeadlessJS compatibility)
+- `services/backgroundService.ts` - Background task that runs the flush loop every 5 seconds
+- `constants/ble.ts` - Nordic UART UUIDs and connection parameters
+
+### Important Implementation Details
+- **Global Variables in fileStorage.ts:** Required for HeadlessJS background service to access state outside React context
+- **Custom Patch:** `patches/react-native-background-actions+4.0.1.patch` fixes Android 10+ foregroundServiceType compatibility
+- **Data Encoding:** BLE data arrives as Base64, decoded and concatenated before writing to `data.raw`
+- **Deep Link Scheme:** `blereact://` configured for notification tap-to-resume

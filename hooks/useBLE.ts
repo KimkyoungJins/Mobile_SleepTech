@@ -21,7 +21,11 @@ import {
   globalAppendData,
   globalFlushBuffer,
   resetFileStorage,
+  setSessionId,
+  resetSessionId,
+  resetUploadState,
 } from '../services/fileStorage';
+import { generateSessionId, uploadChunk, finishSession } from '../services/uploadService';
 import { startBackgroundService, stopBackgroundService } from '../services/backgroundService';
 import { decodeBase64 } from '../utils/helpers';
 
@@ -378,26 +382,55 @@ export const useBLE = (): UseBLEReturn => {
     setGlobalIsRecording(nextState);
 
     if (nextState) {
+      // 녹음 시작
       try {
+        // 세션 ID 생성 및 업로드 상태 초기화
+        const newSessionId = generateSessionId();
+        setSessionId(newSessionId);
+        resetUploadState();
+        console.log(`[세션 시작] session_id: ${newSessionId}`);
+        addLog(`세션 시작: ${newSessionId}`);
+
         const started = await startBackgroundService();
         if (started) {
           addLog('백그라운드 서비스 시작됨');
         }
-        addLog('파일 저장 시작 (백그라운드 지원)');
+        addLog('녹음 시작 (30초마다 서버 업로드)');
       } catch (e) {
         console.log('백그라운드 서비스 시작 실패', e);
         setGlobalIsRecording(false);
         setIsRecording(false);
+        resetSessionId();
       }
     } else {
+      // 녹음 중지
       try {
+        // 남은 버퍼 데이터 저장
         await globalFlushBuffer();
         addLog('버퍼 데이터 저장 완료');
+
+        // 남은 데이터 서버 업로드
+        const uploaded = await uploadChunk();
+        if (uploaded) {
+          addLog('마지막 데이터 업로드 완료');
+        }
+
+        // 서버에 WAV 변환 요청
+        const finished = await finishSession();
+        if (finished) {
+          addLog('서버 WAV 변환 완료');
+        } else {
+          addLog('서버 WAV 변환 실패');
+        }
 
         const stopped = await stopBackgroundService();
         if (stopped) {
           addLog('백그라운드 서비스 중지됨');
         }
+
+        // 세션 정리
+        resetSessionId();
+        addLog('세션 종료');
       } catch (e) {
         console.log('백그라운드 서비스 중지 실패', e);
       }
