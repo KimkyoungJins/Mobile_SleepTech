@@ -17,6 +17,8 @@ import {
   getSessionId,
   getLastSentOffset,
   updateLastSentOffset,
+  getChunkIndex,
+  incrementChunkIndex,
 } from './fileStorage';
 
 // ===================== 상수 =====================
@@ -86,7 +88,8 @@ export const uploadChunk = async (): Promise<boolean> => {
     const newDataLength = fileSize - lastOffset;
     const newDataBase64 = await RNFS.read(filePath, newDataLength, lastOffset, 'base64');
 
-    console.log(`[${getTimestamp()}] 업로드 시작: ${newDataLength} bytes`);
+    const chunkIndex = getChunkIndex();
+    console.log(`[${getTimestamp()}] 업로드 시작: ${newDataLength} bytes (chunk_index: ${chunkIndex})`);
 
     // FormData 생성
     const formData = new FormData();
@@ -96,6 +99,7 @@ export const uploadChunk = async (): Promise<boolean> => {
       name: `${sessionId}.bin`,
     } as any);
     formData.append('session_id', sessionId);
+    formData.append('chunk_index', String(chunkIndex));
     formData.append('noise_level', NOISE_LEVEL);
     formData.append('filter_option', FILTER_OPTION);
 
@@ -109,7 +113,8 @@ export const uploadChunk = async (): Promise<boolean> => {
 
     if (response.ok && result.status === 'success') {
       updateLastSentOffset(fileSize);
-      console.log(`[${getTimestamp()}] 업로드 성공: ${newDataLength} bytes 전송됨`);
+      incrementChunkIndex();
+      console.log(`[${getTimestamp()}] 업로드 성공: ${newDataLength} bytes 전송됨 (chunk_index: ${chunkIndex})`);
       return true;
     } else {
       console.log(`[${getTimestamp()}] 업로드 실패: ${result.message || 'Unknown error'}`);

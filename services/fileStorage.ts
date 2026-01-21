@@ -69,6 +69,9 @@ let globalSessionId: string | null = null;
 /** 마지막으로 서버에 전송한 파일 위치 (바이트) */
 let globalLastSentOffset: number = 0;
 
+/** 현재 청크 인덱스 (업로드 순서) */
+let globalChunkIndex: number = 0;
+
 /** 세션 ID 설정 */
 export const setSessionId = (id: string) => {
   globalSessionId = id;
@@ -97,6 +100,17 @@ export const updateLastSentOffset = (offset: number) => {
 /** 업로드 상태 초기화 (녹음 시작 시 호출) */
 export const resetUploadState = () => {
   globalLastSentOffset = 0;
+  globalChunkIndex = 0;
+};
+
+/** 청크 인덱스 조회 */
+export const getChunkIndex = (): number => {
+  return globalChunkIndex;
+};
+
+/** 청크 인덱스 증가 (업로드 성공 시 호출) */
+export const incrementChunkIndex = (): void => {
+  globalChunkIndex++;
 };
 
 // ===================== 데이터 처리 =====================
