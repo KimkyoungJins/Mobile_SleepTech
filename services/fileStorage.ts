@@ -21,6 +21,9 @@ export const STORAGE_DIR = RNFS.DocumentDirectoryPath;
 /** 버퍼 flush 간격 (5초) */
 export const FLUSH_INTERVAL = 5000;
 
+/** 30초 분량 오디오 데이터 크기 (16kHz, 16bit, 모노) */
+export const CHUNK_SIZE_30SEC = 960000; // 16000 * 2 * 1 * 30 = 960,000 bytes
+
 /** 현재 파일명 (세션 ID 기반) */
 let globalFileName: string = 'data.raw';
 

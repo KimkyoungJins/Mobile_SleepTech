@@ -109,7 +109,18 @@ export const uploadChunk = async (): Promise<boolean> => {
       body: formData,
     });
 
-    const result = await response.json();
+    // 디버깅: 응답 텍스트 먼저 확인
+    const responseText = await response.text();
+    console.log(`[${getTimestamp()}] 서버 응답 (status=${response.status}): ${responseText.substring(0, 300)}`);
+
+    // JSON 파싱
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      console.log(`[${getTimestamp()}] JSON 파싱 실패`);
+      return false;
+    }
 
     if (response.ok && result.status === 'success') {
       updateLastSentOffset(fileSize);

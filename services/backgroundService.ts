@@ -10,17 +10,18 @@
  */
 
 import BackgroundService from 'react-native-background-actions';
+import RNFS from 'react-native-fs';
 import { sleep, getTimestamp } from '../utils/helpers';
 import {
   globalIsRecording,
   globalFlushBuffer,
   globalWriteBuffer,
-  FLUSH_INTERVAL
+  getFilePath,
+  getLastSentOffset,
+  FLUSH_INTERVAL,
+  CHUNK_SIZE_30SEC
 } from './fileStorage';
 import { uploadChunk } from './uploadService';
-
-/** 업로드 주기 (30초 = 6번의 flush 사이클) */
-const UPLOAD_CYCLE = 6;
 
 // ===================== 백그라운드 태스크 =====================
 
@@ -28,27 +29,38 @@ const UPLOAD_CYCLE = 6;
  * 백그라운드에서 실행되는 메인 함수
  * - 무한 루프로 5초마다 실행
  * - 녹음 중이면 버퍼를 파일에 저장
- * - 30초마다 서버에 업로드
+ * - 30초 분량 데이터(960KB)가 모이면 서버에 업로드
  */
 export const backgroundTask = async (taskDataArguments: { delay: number }) => {
   const { delay } = taskDataArguments;
-  let flushCount = 0;
 
   await new Promise<void>(async (resolve) => {
     for (let i = 0; BackgroundService.isRunning(); i++) {
       // 녹음 중이면 버퍼 → 파일 저장
       if (globalIsRecording) {
         await globalFlushBuffer();
-        flushCount++;
 
-        // 30초마다 서버 업로드 (6번의 flush 사이클)
-        if (flushCount >= UPLOAD_CYCLE) {
-          await uploadChunk();
-          flushCount = 0;
+        // 30초 분량 데이터가 모이면 서버 업로드
+        try {
+          const filePath = getFilePath();
+          const exists = await RNFS.exists(filePath);
+          if (exists) {
+            const stat = await RNFS.stat(filePath);
+            const fileSize = Number(stat.size);
+            const lastOffset = getLastSentOffset();
+            const newDataSize = fileSize - lastOffset;
+
+            if (newDataSize >= CHUNK_SIZE_30SEC) {
+              console.log(`[${getTimestamp()}] 30초 분량 도달: ${newDataSize} bytes >= ${CHUNK_SIZE_30SEC} bytes`);
+              await uploadChunk();
+            }
+          }
+        } catch (err: any) {
+          console.log(`[${getTimestamp()}] 파일 크기 확인 에러: ${err.message}`);
         }
       }
 
-      console.log(`[${getTimestamp()}] Background: cycle=${i}, recording=${globalIsRecording}, buffer=${globalWriteBuffer.length}, flushCount=${flushCount}`);
+      console.log(`[${getTimestamp()}] Background: cycle=${i}, recording=${globalIsRecording}, buffer=${globalWriteBuffer.length}`);
       await sleep(delay);
     }
   });
