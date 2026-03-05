@@ -8,12 +8,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Alert, AppState, Platform, PermissionsAndroid, Linking, LogBox } from 'react-native';
 import { BleManager, Device, Subscription } from 'react-native-ble-plx';
 import BackgroundService from 'react-native-background-actions';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import {
   NUS_SERVICE_UUID,
   NUS_TX_CHARACTERISTIC_UUID,
   DEVICE_NAME_FILTER,
-  MAX_RECONNECT_ATTEMPTS,
   ANDROID_MTU_SIZE,
+  RECONNECT_TIMEOUT_MS,
 } from '../constants/ble';
 import RNFS from 'react-native-fs';
 import {
@@ -79,6 +80,7 @@ export const useBLE = (): UseBLEReturn => {
   const packetCountRef = useRef(0);
   const lastDeviceIdRef = useRef<string | null>(null);
   const reconnectAttemptRef = useRef(0);
+  const reconnectStartTimeRef = useRef<number>(0);
   const disconnectionListenerRef = useRef<Subscription | null>(null);
 
   /**
@@ -204,14 +206,16 @@ export const useBLE = (): UseBLEReturn => {
       return;
     }
 
-    if (reconnectAttemptRef.current >= MAX_RECONNECT_ATTEMPTS) {
-      console.log('최대 재연결 시도 횟수 초과');
-      addLog('재연결 실패: 최대 시도 횟수 초과');
+    const elapsed = Date.now() - reconnectStartTimeRef.current;
+    if (elapsed > RECONNECT_TIMEOUT_MS) {
+      console.log(`재연결 타임아웃 (${Math.round(elapsed / 60000)}분 경과)`);
+      addLog('재연결 실패: 타임아웃');
       return;
     }
 
     reconnectAttemptRef.current += 1;
-    console.log(`재연결 시도 ${reconnectAttemptRef.current}/${MAX_RECONNECT_ATTEMPTS}`);
+    const backoff = Math.min(5000 * reconnectAttemptRef.current, 30000);
+    console.log(`재연결 시도 #${reconnectAttemptRef.current} (${Math.round(elapsed / 1000)}초 경과)`);
 
     try {
       const devices = await manager.devices([lastDeviceIdRef.current]);
@@ -219,6 +223,7 @@ export const useBLE = (): UseBLEReturn => {
       if (devices.length > 0) {
         await connectToDevice(devices[0]);
         reconnectAttemptRef.current = 0;
+        reconnectStartTimeRef.current = 0;
         console.log('재연결 성공');
       } else {
         console.log('디바이스 재스캔 시작');
@@ -226,7 +231,7 @@ export const useBLE = (): UseBLEReturn => {
       }
     } catch (err: any) {
       console.log('재연결 실패:', err.message);
-      setTimeout(() => attemptReconnect(), 5000);
+      setTimeout(() => attemptReconnect(), backoff);
     }
   };
 
@@ -248,6 +253,8 @@ export const useBLE = (): UseBLEReturn => {
 
         if (globalIsRecording) {
           addLog('연결 끊김 - 재연결 시도 중...');
+          reconnectStartTimeRef.current = Date.now();
+          reconnectAttemptRef.current = 0;
           setTimeout(() => attemptReconnect(), 2000);
         } else {
           addLog('연결이 끊어졌습니다');
@@ -394,6 +401,8 @@ export const useBLE = (): UseBLEReturn => {
         resetUploadState();
         resetFileStorage();
 
+        await activateKeepAwakeAsync('recording');
+
         console.log(`[세션 시작] session_id: ${newSessionId}, 파일: ${newSessionId}.raw`);
         addLog(`세션 시작: ${newSessionId}`);
 
@@ -433,6 +442,8 @@ export const useBLE = (): UseBLEReturn => {
         if (stopped) {
           addLog('백그라운드 서비스 중지됨');
         }
+
+        deactivateKeepAwake('recording');
 
         // 세션 정리
         resetSessionId();

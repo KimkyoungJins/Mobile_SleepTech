@@ -24,6 +24,9 @@ export const FLUSH_INTERVAL = 5000;
 /** 30초 분량 오디오 데이터 크기 (16kHz, 16bit, 모노) */
 export const CHUNK_SIZE_30SEC = 960000; // 16000 * 2 * 1 * 30 = 960,000 bytes
 
+/** 버퍼 최대 크기 (flush 실패 시 OOM 방지) - 약 60초 분량 */
+export const MAX_BUFFER_SIZE = 2000;
+
 /** 현재 파일명 (세션 ID 기반) */
 let globalFileName: string = 'data.raw';
 

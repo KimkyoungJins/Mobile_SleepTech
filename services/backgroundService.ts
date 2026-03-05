@@ -19,7 +19,8 @@ import {
   getFilePath,
   getLastSentOffset,
   FLUSH_INTERVAL,
-  CHUNK_SIZE_30SEC
+  CHUNK_SIZE_30SEC,
+  MAX_BUFFER_SIZE,
 } from './fileStorage';
 import { uploadChunk } from './uploadService';
 
@@ -38,9 +39,16 @@ export const backgroundTask = async (taskDataArguments: { delay: number }) => {
     for (let i = 0; BackgroundService.isRunning(); i++) {
       // 녹음 중이면 버퍼 → 파일 저장
       if (globalIsRecording) {
+        // 버퍼 크기 제한 (OOM 방지) - flush 실패가 반복되면 오래된 데이터 버림
+        if (globalWriteBuffer.length > MAX_BUFFER_SIZE) {
+          const dropped = globalWriteBuffer.length - MAX_BUFFER_SIZE;
+          globalWriteBuffer.splice(0, dropped);
+          console.log(`[${getTimestamp()}] 버퍼 초과: ${dropped}개 청크 제거`);
+        }
+
         await globalFlushBuffer();
 
-        // 30초 분량 데이터가 모이면 서버 업로드
+        // 30초 분량 데이터가 모이면 서버 업로드 (실패 시 1회 재시도)
         try {
           const filePath = getFilePath();
           const exists = await RNFS.exists(filePath);
@@ -52,7 +60,12 @@ export const backgroundTask = async (taskDataArguments: { delay: number }) => {
 
             if (newDataSize >= CHUNK_SIZE_30SEC) {
               console.log(`[${getTimestamp()}] 30초 분량 도달: ${newDataSize} bytes >= ${CHUNK_SIZE_30SEC} bytes`);
-              await uploadChunk();
+              const success = await uploadChunk();
+              if (!success) {
+                console.log(`[${getTimestamp()}] 업로드 실패, 5초 후 재시도`);
+                await sleep(5000);
+                await uploadChunk();
+              }
             }
           }
         } catch (err: any) {
