@@ -19,18 +19,80 @@ import {
   updateLastSentOffset,
   getChunkIndex,
   incrementChunkIndex,
+  addUploadLog,
 } from './fileStorage';
+
+// ===================== 수면 분석 결과 타입 =====================
+
+/**
+ * 수면 단계별 시간 (분 단위).
+ *
+ * 현재 백엔드 모델(ResNet22)은 **2-class(WAKE/SLEEP)** 분류기이며
+ * 수면으로 분류된 모든 시간은 `nrem_minutes` 키로 응답된다.
+ * `rem_minutes`는 항상 0이다 (향후 EOG 모델 통합 시 REM 분리 예정).
+ */
+export interface SleepStages {
+  nrem_minutes: number;
+  rem_minutes: number;  // 현재 항상 0 (2-class 모델)
+  wake_minutes: number;
+}
+
+/** 타임라인 항목 */
+export interface TimelineEntry {
+  time: string;
+  stage: 'NREM' | 'REM' | 'WAKE';
+}
+
+/** 수면 분석 결과 응답 */
+export interface SleepResultResponse {
+  session_id: string;
+  total_sleep_minutes: number;
+  sleep_start: string;
+  sleep_end: string;
+  stages: SleepStages;
+  timeline: TimelineEntry[];
+}
 
 // ===================== 상수 =====================
 
-/** 서버 Base URL */
-const BASE_URL = 'http://203.252.112.13:8000';
+/** 서버 Base URL — Azure VM (Korea Central) */
+const BASE_URL = 'http://20.196.65.173:8000';
 
 /** 노이즈 필터 강도 (0.0 ~ 1.0) */
 const NOISE_LEVEL = '0.8';
 
 /** 필터 사용 여부 */
 const FILTER_OPTION = 'true';
+
+// ===================== 서버 연결 테스트 =====================
+
+/**
+ * 서버 연결 상태 확인 (단순 ping)
+ * @returns { reachable, latencyMs, error? }
+ */
+export const pingServer = async (): Promise<{
+  reachable: boolean;
+  latencyMs: number;
+  error?: string;
+}> => {
+  const start = Date.now();
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
+    const response = await fetch(`${BASE_URL}/`, {
+      method: 'GET',
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    const latencyMs = Date.now() - start;
+    return { reachable: true, latencyMs };
+  } catch (error: any) {
+    const latencyMs = Date.now() - start;
+    return { reachable: false, latencyMs, error: error.message };
+  }
+};
 
 // ===================== 세션 ID 생성 =====================
 
@@ -125,15 +187,21 @@ export const uploadChunk = async (): Promise<boolean> => {
     if (response.ok && result.status === 'success') {
       updateLastSentOffset(fileSize);
       incrementChunkIndex();
-      console.log(`[${getTimestamp()}] 업로드 성공: ${newDataLength} bytes 전송됨 (chunk_index: ${chunkIndex})`);
+      const msg = `서버 전송 성공: ${(newDataLength / 1024).toFixed(1)}KB (chunk #${chunkIndex})`;
+      console.log(`[${getTimestamp()}] ${msg}`);
+      addUploadLog(msg, true);
       return true;
     } else {
-      console.log(`[${getTimestamp()}] 업로드 실패: ${result.message || 'Unknown error'}`);
+      const msg = `서버 전송 실패: ${result.message || 'Unknown error'}`;
+      console.log(`[${getTimestamp()}] ${msg}`);
+      addUploadLog(msg, false);
       return false;
     }
 
   } catch (error: any) {
-    console.log(`[${getTimestamp()}] 업로드 에러: ${error.message}`);
+    const msg = `서버 연결 에러: ${error.message}`;
+    console.log(`[${getTimestamp()}] ${msg}`);
+    addUploadLog(msg, false);
     return false;
   }
 };
@@ -170,14 +238,67 @@ export const finishSession = async (): Promise<boolean> => {
     if (response.ok && result.status === 'success') {
       console.log(`[${getTimestamp()}] WAV 변환 완료: ${result.filename}`);
       console.log(`[${getTimestamp()}] 녹음 길이: ${result.message}`);
+      addUploadLog(`세션 종료 완료: ${result.message}`, true);
       return true;
     } else {
-      console.log(`[${getTimestamp()}] 세션 종료 실패: ${result.message || 'Unknown error'}`);
+      const msg = `세션 종료 실패: ${result.message || 'Unknown error'}`;
+      console.log(`[${getTimestamp()}] ${msg}`);
+      addUploadLog(msg, false);
       return false;
     }
 
   } catch (error: any) {
-    console.log(`[${getTimestamp()}] 세션 종료 에러: ${error.message}`);
+    const msg = `세션 종료 에러: ${error.message}`;
+    console.log(`[${getTimestamp()}] ${msg}`);
+    addUploadLog(msg, false);
     return false;
+  }
+};
+
+// ===================== 수면 분석 결과 조회 =====================
+
+/**
+ * 서버에서 수면 분석 결과를 조회
+ * @param sessionId 조회할 세션 ID
+ * @returns 분석 결과 또는 null (미완료/에러)
+ */
+export const fetchSleepResult = async (sessionId: string): Promise<SleepResultResponse | null> => {
+  try {
+    console.log(`[${getTimestamp()}] 수면 분석 결과 조회: ${sessionId}`);
+
+    const response = await fetch(`${BASE_URL}/api/result/${sessionId}`);
+    const responseText = await response.text();
+
+    console.log(`[${getTimestamp()}] 분석 결과 응답 (status=${response.status}): ${responseText.substring(0, 300)}`);
+
+    if (!response.ok) {
+      console.log(`[${getTimestamp()}] 분석 결과 조회 실패: status=${response.status}`);
+      return null;
+    }
+
+    const result = JSON.parse(responseText);
+
+    // 분석이 아직 완료되지 않은 경우
+    if (result.status === 'pending') {
+      console.log(`[${getTimestamp()}] 분석 진행 중: ${result.message}`);
+      addUploadLog(`분석 진행 중...`, true);
+      return null;
+    }
+
+    // 필수 필드 검증
+    if (!result.stages || !result.timeline || !result.total_sleep_minutes) {
+      console.log(`[${getTimestamp()}] 분석 결과 형식 오류: stages/timeline/total_sleep_minutes 누락`);
+      addUploadLog(`분석 결과 형식이 올바르지 않습니다`, false);
+      return null;
+    }
+
+    addUploadLog(`수면 분석 결과 수신 완료`, true);
+    return result as SleepResultResponse;
+
+  } catch (error: any) {
+    const msg = `분석 결과 조회 에러: ${error.message}`;
+    console.log(`[${getTimestamp()}] ${msg}`);
+    addUploadLog(msg, false);
+    return null;
   }
 };

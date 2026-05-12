@@ -119,6 +119,38 @@ export const incrementChunkIndex = (): void => {
   globalChunkIndex++;
 };
 
+// ===================== 업로드 로그 (UI 표시용) =====================
+
+export interface UploadLogEntry {
+  timestamp: string;
+  text: string;
+  success: boolean;
+}
+
+/** 업로드 로그 배열 (최근 500개까지 유지) */
+const MAX_UPLOAD_LOGS = 500;
+let globalUploadLogs: UploadLogEntry[] = [];
+
+/** 업로드 로그 추가 */
+export const addUploadLog = (text: string, success: boolean) => {
+  const now = new Date();
+  const timestamp = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+  globalUploadLogs.unshift({ timestamp, text, success });
+  if (globalUploadLogs.length > MAX_UPLOAD_LOGS) {
+    globalUploadLogs = globalUploadLogs.slice(0, MAX_UPLOAD_LOGS);
+  }
+};
+
+/** 업로드 로그 조회 */
+export const getUploadLogs = (): UploadLogEntry[] => {
+  return globalUploadLogs;
+};
+
+/** 업로드 로그 초기화 */
+export const clearUploadLogs = () => {
+  globalUploadLogs = [];
+};
+
 // ===================== 데이터 처리 =====================
 
 /**

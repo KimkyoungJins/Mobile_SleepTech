@@ -37,12 +37,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="blereact"/>
+        <data android:scheme="sleeptech"/>
       </intent-filter>
     </activity>
-    <service
-        android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask"
-        android:foregroundServiceType="connectedDevice|dataSync"
-        android:exported="false"/>
   </application>
 </manifest>

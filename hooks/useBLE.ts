@@ -24,6 +24,7 @@ import {
   globalFlushBuffer,
   resetFileStorage,
   setSessionId,
+  getSessionId,
   resetSessionId,
   resetUploadState,
   getFilePath,
@@ -55,6 +56,7 @@ export interface UseBLEReturn {
   logs: LogEntry[];
   packetCount: number;
   isRecording: boolean;
+  lastSessionId: string | null;
   scanAndConnect: () => void;
   disconnect: () => Promise<void>;
   toggleRecording: () => Promise<void>;
@@ -71,6 +73,7 @@ export const useBLE = (): UseBLEReturn => {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [packetCount, setPacketCount] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
+  const [lastSessionId, setLastSessionId] = useState<string | null>(null);
 
   // Refs
   const timeRef = useRef(0);
@@ -193,7 +196,6 @@ export const useBLE = (): UseBLEReturn => {
       }
 
       BackgroundService.stop();
-      manager.destroy();
     };
   }, []);
 
@@ -431,6 +433,7 @@ export const useBLE = (): UseBLEReturn => {
         }
 
         // 서버에 WAV 변환 요청
+        const currentSessionId = getSessionId();
         const finished = await finishSession();
         if (finished) {
           addLog('서버 WAV 변환 완료');
@@ -445,7 +448,10 @@ export const useBLE = (): UseBLEReturn => {
 
         deactivateKeepAwake('recording');
 
-        // 세션 정리
+        // 세션 ID 보존 (수면 분석 결과 조회용) 후 정리
+        if (currentSessionId) {
+          setLastSessionId(currentSessionId);
+        }
         resetSessionId();
         addLog('세션 종료');
       } catch (e) {
@@ -460,6 +466,7 @@ export const useBLE = (): UseBLEReturn => {
     logs,
     packetCount,
     isRecording,
+    lastSessionId,
     scanAndConnect,
     disconnect,
     toggleRecording,

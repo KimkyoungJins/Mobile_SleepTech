@@ -179,7 +179,7 @@ export default function HomeScreen() {
               style={[styles.mainBtn, styles.startBtn, { flex: 1, marginRight: 10 }]}
               onPress={toggleRecording}
             >
-              <Text style={styles.mainBtnText}>녹음 시작</Text>
+              <Text style={styles.mainBtnText}>수면 데이터 기록 시작</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.subBtn, { flex: 0.5 }]}

@@ -1,27 +1,42 @@
 {
   "expo": {
-    "name": "ble_react",
+    "name": "SleepTech",
     "slug": "ble_react",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "blereact",
-    "userInterfaceStyle": "automatic",
+    "scheme": "sleeptech",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0D1117"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourname.bleapp",
       "infoPlist": {
         "NSBluetoothAlwaysUsageDescription": "기기 연결을 위해 블루투스 권한이 필요합니다.",
-        "NSBluetoothPeripheralUsageDescription": "기기 연결을 위해 블루투스 권한이 필요합니다."
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "20.196.65.173": {
+              "NSExceptionAllowsInsecureHTTPLoads": true,
+              "NSIncludesSubdomains": true
+            }
+          }
+        }
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png",
+        "backgroundColor": "#2E1358"
       },
       "package": "com.yourname.bleapp",
+      "usesCleartextTraffic": true,
       "permissions": [
         "android.permission.BLUETOOTH",
         "android.permission.BLUETOOTH_ADMIN",
@@ -43,9 +58,8 @@
           "modes": [
             "central"
           ],
-          "bluetoothAlwaysPermission": "Allow App to use Bluetooth",
-          "bluetoothPeripheralPermission": "Allow App to use Bluetooth"
-        }, 
+          "bluetoothAlwaysPermission": "Allow App to use Bluetooth"
+        }
       ]
     ],
     "extra": {
