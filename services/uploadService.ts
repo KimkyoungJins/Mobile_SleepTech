@@ -43,6 +43,36 @@ export interface TimelineEntry {
   stage: 'NREM' | 'REM' | 'WAKE';
 }
 
+/** 무호흡 분석 결과 (apnea_model.pth — PANNs ResNet22) */
+export interface ApneaAnalysis {
+  /** 전체 epoch 중 APNEA로 분류된 수 */
+  total_apnea_events: number;
+  /** SLEEP epoch 위에서 발생한 APNEA 수 (임상 의미) */
+  apnea_events_during_sleep: number;
+  /** 추정 AHI (Apnea-Hypopnea Index, events/hour) */
+  estimated_AHI: number;
+  /** 'Normal' | 'Mild' | 'Moderate' | 'Severe' */
+  severity: 'Normal' | 'Mild' | 'Moderate' | 'Severe';
+  severity_categories: {
+    normal: boolean;
+    mild: boolean;
+    moderate: boolean;
+    severe: boolean;
+  };
+  /** Moderate/Severe면 true */
+  clinically_significant: boolean;
+  /** 한국어 권고문 */
+  recommendation: string;
+}
+
+/** 수면 + 무호흡 결합 인사이트 */
+export interface CombinedInsights {
+  /** 각성 직전/직후 epoch이 APNEA였던 비율 (%) */
+  fragmentation_attributable_to_apnea_percent: number;
+  /** 한 줄 요약 메시지 */
+  sleep_quality_impact: string;
+}
+
 /** 수면 분석 결과 응답 */
 export interface SleepResultResponse {
   session_id: string;
@@ -51,6 +81,20 @@ export interface SleepResultResponse {
   sleep_end: string;
   stages: SleepStages;
   timeline: TimelineEntry[];
+  /** 실시간 partial 결과일 때 'in_progress', 최종은 undefined */
+  status?: 'in_progress';
+  /** 실시간 partial에서 누적 분석된 30초 에포크 수 */
+  epochs_analyzed?: number;
+  /** 30초 epoch별 stage 시퀀스 (임상 지표 계산용 — SOL/WASO/fragmentation 등) */
+  epoch_sequence?: string[];
+  /** epoch 길이 (초). 미제공 시 30 가정. */
+  epoch_sec?: number;
+  /** 30초 epoch별 apnea 라벨 ("NORMAL" | "APNEA"). 무호흡 모델이 있을 때만. */
+  apnea_sequence?: string[];
+  /** 무호흡 종합 분석. 무호흡 모델이 있을 때만. */
+  apnea_analysis?: ApneaAnalysis;
+  /** 수면 + 무호흡 결합 인사이트. 무호흡 모델이 있을 때만. */
+  combined_insights?: CombinedInsights;
 }
 
 // ===================== 상수 =====================

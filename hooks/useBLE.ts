@@ -200,6 +200,34 @@ export const useBLE = (): UseBLEReturn => {
   }, []);
 
   /**
+   * 재연결 실패 등 비정상 상황에서 녹음을 강제로 종료
+   * (toggleRecording의 정상 중지 경로와 동일하지만, isRecording=true를 가정하지 않고 단방향 정리만 수행)
+   */
+  const stopRecordingForcefully = async (reason: string) => {
+    try {
+      await globalFlushBuffer();
+      const uploaded = await uploadChunk();
+      if (uploaded) addLog('마지막 데이터 업로드 완료');
+
+      const currentSessionId = getSessionId();
+      const finished = await finishSession();
+      if (finished) addLog('서버 WAV 변환 완료');
+
+      await stopBackgroundService();
+      deactivateKeepAwake('recording');
+
+      if (currentSessionId) setLastSessionId(currentSessionId);
+      resetSessionId();
+
+      setIsRecording(false);
+      setGlobalIsRecording(false);
+      addLog(`세션 종료 (${reason})`);
+    } catch (e: any) {
+      console.log('강제 종료 에러:', e?.message ?? e);
+    }
+  };
+
+  /**
    * BLE 재연결 시도
    */
   const attemptReconnect = async () => {
@@ -212,6 +240,38 @@ export const useBLE = (): UseBLEReturn => {
     if (elapsed > RECONNECT_TIMEOUT_MS) {
       console.log(`재연결 타임아웃 (${Math.round(elapsed / 60000)}분 경과)`);
       addLog('재연결 실패: 타임아웃');
+
+      // 앱이 foreground이면 사용자에게 선택권을 주고, background이면 데이터 보호를 위해 자동 종료
+      if (isAppActiveRef.current) {
+        const elapsedMin = Math.round(RECONNECT_TIMEOUT_MS / 60000);
+        Alert.alert(
+          '장치 연결 끊김',
+          `${elapsedMin}분 동안 재연결을 시도했지만 실패했습니다.\n\n` +
+            '장치 전원과 가까운 거리를 확인하세요.',
+          [
+            {
+              text: '녹음 중지',
+              style: 'destructive',
+              onPress: () => {
+                stopRecordingForcefully('재연결 실패');
+              },
+            },
+            {
+              text: '재연결',
+              onPress: () => {
+                addLog('재연결 재시도 요청');
+                reconnectStartTimeRef.current = Date.now();
+                reconnectAttemptRef.current = 0;
+                attemptReconnect();
+              },
+            },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        addLog('백그라운드 자동 종료');
+        stopRecordingForcefully('백그라운드 자동 종료');
+      }
       return;
     }
 
@@ -400,6 +460,8 @@ export const useBLE = (): UseBLEReturn => {
         const newSessionId = generateSessionId();
         setSessionId(newSessionId);
         setFileName(newSessionId);  // 파일명: {세션ID}.raw
+        // lastSessionId도 즉시 갱신 — 분석 탭에서 실시간 partial 결과 폴링용
+        setLastSessionId(newSessionId);
         resetUploadState();
         resetFileStorage();
 
